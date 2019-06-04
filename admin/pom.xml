@@ -5,7 +5,7 @@
     <parent>
         <artifactId>qconfig</artifactId>
         <groupId>qunar.tc.qconfig</groupId>
-        <version>OPENSOURCE-SNAPSHOT</version>
+        <version>0.5.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -32,8 +32,6 @@
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.0.1</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -65,17 +63,6 @@
         <dependency>
             <groupId>commons-digester</groupId>
             <artifactId>commons-digester</artifactId>
-        </dependency>
-
-        <!-- velocity -->
-        <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>velocity-tools</groupId>
-            <artifactId>velocity-tools</artifactId>
         </dependency>
 
         <!-- spring -->
@@ -227,24 +214,6 @@
 
     <build>
         <finalName>ROOT</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.3.v20170317</version>
-                <configuration>
-                    <webAppConfig>
-                        <defaultsDescriptor>src/main/resources/webdefault.xml</defaultsDescriptor>
-                    </webAppConfig>
-                    <scanIntervalSeconds>1</scanIntervalSeconds>
-                    <scanTargets>
-                        <scanTarget>./target/classes</scanTarget>
-                    </scanTargets>
-                </configuration>
-
-            </plugin>
-        </plugins>
     </build>
-
 
 </project>

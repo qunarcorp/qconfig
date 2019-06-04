@@ -7,19 +7,18 @@
     <groupId>qunar.tc.qconfig</groupId>
     <artifactId>qconfig</artifactId>
     <packaging>pom</packaging>
-    <version>OPENSOURCE-SNAPSHOT</version>
+    <version>0.5.0-SNAPSHOT</version>
 
     <properties>
         <java_source_version>1.8</java_source_version>
         <java_target_version>1.8</java_target_version>
-        <maven_compiler_plugin_version>3.2</maven_compiler_plugin_version>
+        <maven_deploy_skip>false</maven_deploy_skip>
         <file_encoding>UTF-8</file_encoding>
 
-        <org.springframework.version>4.2.9.RELEASE</org.springframework.version>
-        <org.springsecurity.version>4.2.9.RELEASE</org.springsecurity.version>
+        <org.springframework.version>4.3.24.RELEASE</org.springframework.version>
+        <org.springsecurity.version>4.2.12.RELEASE</org.springsecurity.version>
         <digester.version>1.6</digester.version>
-        <velocity.version>1.4</velocity.version>
-        <commons.fileupload>1.2.2</commons.fileupload>
+        <commons.fileupload>1.3.3</commons.fileupload>
         <commons.io.version>2.4</commons.io.version>
         <common.service.api.version>1.0.0</common.service.api.version>
         <meerkat.web.version>2.2.3</meerkat.web.version>
@@ -30,24 +29,18 @@
         <powermock.version>1.6.4</powermock.version>
         <qtracer.version>1.4.2</qtracer.version>
         <poi.version>3.9</poi.version>
-        <jackson.version>2.8.7</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
         <eureka.version>1.7.0</eureka.version>
         <jersey.version>1.19.1</jersey.version>
-        <vi.version>0.10.5</vi.version>
-        <framework-foundation.version>1.8.2</framework-foundation.version>
-        <maven_deploy_skip>false</maven_deploy_skip>
-        <framework-bom.version>1.8.1</framework-bom.version>
         <apache-common-version>1.10</apache-common-version>
-        <tomcat-embed-version>8.0.45</tomcat-embed-version>
-        <javax.servlet.version>3.1.0</javax.servlet.version>
+        <javax.servlet.version>3.0.1</javax.servlet.version>
         <async.http.client.version>1.9.39</async.http.client.version>
         <guava.version>23.0</guava.version>
         <org.slf4j.version>1.7.5</org.slf4j.version>
         <logback.version>1.0.13</logback.version>
-        <com.fasterxml.jackson.version>2.3.0</com.fasterxml.jackson.version>
         <netty4.version>4.0.24.Final</netty4.version>
         <netty3.version>3.9.5.Final</netty3.version>
-        <tomcat.version>7.0.73</tomcat.version>
+        <tomcat.version>7.0.94</tomcat.version>
 
         <gson.version>2.6.2</gson.version>
         <hc.httpcore.version>4.3.1</hc.httpcore.version>
@@ -166,7 +159,7 @@
             <dependency>
                 <groupId>org.springframework.security.oauth</groupId>
                 <artifactId>spring-security-oauth2</artifactId>
-                <version>2.3.4.RELEASE</version>
+                <version>2.3.6.RELEASE</version>
             </dependency>
 
             <dependency>
@@ -226,6 +219,7 @@
                 <groupId>javax.servlet</groupId>
                 <artifactId>javax.servlet-api</artifactId>
                 <version>${javax.servlet.version}</version>
+                <scope>provided</scope>
             </dependency>
 
             <dependency>
@@ -267,13 +261,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- velocity -->
-            <dependency>
-                <groupId>velocity-tools</groupId>
-                <artifactId>velocity-tools</artifactId>
-                <version>${velocity.version}</version>
-                <scope>runtime</scope>
-            </dependency>
 
             <!--file upload-->
             <dependency>
@@ -521,13 +508,6 @@
                 <version>${guava.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>1.7</version>
-                <scope>runtime</scope>
-            </dependency>
-
             <!-- tomcat related, in line with the version used by tars -->
             <dependency>
                 <groupId>org.apache.tomcat.embed</groupId>
@@ -599,8 +579,6 @@
                 <artifactId>jackson-dataformat-cbor</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
-
-
 
             <dependency>
                 <groupId>commons-dbcp</groupId>
@@ -733,46 +711,37 @@
     <build>
         <pluginManagement>
             <plugins>
-                <!--QZZ related End-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven_compiler_plugin_version}</version>
+                    <version>3.5.1</version>
                     <configuration>
                         <source>${java_source_version}</source>
                         <target>${java_target_version}</target>
                         <encoding>${file_encoding}</encoding>
-                        <compilerArgs>
-                            <arg>-J-Duser.country=US</arg>
-                        </compilerArgs>
                         <debug>true</debug>
                         <fork>true</fork>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-compiler-plugin</artifactId>
-                    <version>${maven_compiler_plugin_version}</version>
+                    <artifactId>maven-deploy-plugin</artifactId>
+                    <version>2.8.2</version>
                     <configuration>
-                        <source>${java_source_version}</source>
-                        <target>${java_target_version}</target>
-                        <encoding>${file_encoding}</encoding>
-                        <compilerArgs>
-                            <arg>-J-Duser.country=US</arg>
-                        </compilerArgs>
-                        <debug>true</debug>
-                        <fork>true</fork>
+                        <skip>${maven_deploy_skip}</skip>
                     </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>internal.repo</id>
-            <name>Internal repo</name>
-            <url>file:/Users/deepdown/.m2</url>
-        </repository>
-    </distributionManagement>
 </project>
