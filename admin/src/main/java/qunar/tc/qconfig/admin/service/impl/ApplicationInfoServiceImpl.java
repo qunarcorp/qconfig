@@ -18,6 +18,7 @@ import qunar.tc.qconfig.admin.monitor.Monitor;
 import qunar.tc.qconfig.admin.service.ApplicationInfoService;
 import qunar.tc.qconfig.admin.service.UserContextService;
 import qunar.tc.qconfig.common.support.Application;
+import qunar.tc.qconfig.common.util.TokenUtil;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -54,6 +55,15 @@ public class ApplicationInfoServiceImpl implements ApplicationInfoService {
     });
 
     private LoadingCache<String, Application> cache = CacheBuilder.newBuilder().maximumSize(50).build(cacheLoader);
+
+    @Override
+    public String getToken(String appCode) {
+        List<String> appCodes = applicationUserDao.getAppCodeByRTX(userContextService.getRtxId());
+        if (!appCodes.contains(appCode)) {
+           throw new RuntimeException("当前用户无访问权限");
+        }
+        return TokenUtil.encode(appCode);
+    }
 
     @Override
     public boolean checkExist(String appCode) {

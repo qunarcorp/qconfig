@@ -96,9 +96,9 @@ public class LoginFilter implements Filter {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-//        if (authentication == null) {
-//            return null;
-//        }
+        if (authentication == null) {
+            return null;
+        }
 
         account.setUserId("admin");
         return account;

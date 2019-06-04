@@ -10,6 +10,8 @@ import java.util.List;
  */
 public interface ApplicationInfoService {
 
+    String getToken(String appCode);
+
     boolean checkExist(String appCode);
 
     int createApplication(Application application);

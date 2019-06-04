@@ -5,19 +5,6 @@ package qunar.tc.qconfig.admin.web.security;
  */
 public interface TokenService {
 
-    App decode(String token);
+    String decode(String token);
 
-    public static class App {
-        public final String name;
-
-        public final String env;
-
-        public final String ip;
-
-        public App(String name, String env, String ip) {
-            this.name = name;
-            this.env = env;
-            this.ip = ip;
-        }
-    }
 }

@@ -1,12 +1,10 @@
 package qunar.tc.qconfig.admin.cloud.controller;
 
-import com.google.common.base.Objects;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Strings;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,7 +14,6 @@ import qunar.tc.qconfig.admin.service.ApplicationInfoService;
 import qunar.tc.qconfig.admin.service.UserContextService;
 import qunar.tc.qconfig.common.bean.JsonV2;
 import qunar.tc.qconfig.common.support.Application;
-import qunar.tc.qconfig.common.util.TokenUtil;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -55,7 +52,7 @@ public class ApplicationController {
     @RequestMapping(value = "/appCode/getToken", method = RequestMethod.GET)
     @ResponseBody
     public Object getToken(String appCode) {
-        return JsonV2.successOf(0, "success", TokenUtil.encode(appCode));
+        return JsonV2.successOf(0, "success", applicationInfoService.getToken(appCode));
     }
 
     @RequestMapping(value = "/appCode/create", method = RequestMethod.POST)

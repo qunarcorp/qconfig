@@ -109,7 +109,7 @@ public class ClientUploadController extends AbstractControllerHelper {
             @RequestParam(value = "token") String token
     ) throws IOException {
 
-        TokenService.App app;
+        String app;
         try {
             app = tokenService.decode(token);
             Preconditions.checkNotNull(app);
@@ -413,35 +413,16 @@ public class ClientUploadController extends AbstractControllerHelper {
         logger.info("client upload file, token=[{}], group=[{}], dataId=[{}], buildGroup=[{}], version=[{}], fileProfile=[{}], operator=[{}]",
                 token, group, dataId, buildGroup, version, fileProfile, operator);
         if (!Strings.isNullOrEmpty(operator)) {
-            // TODO  qcloud环境还要该下corp
             userContext.setAccount(new Account(operator));
         }
         String ip = userContext.getIp();
-        TokenService.App app;
+        String app;
         try {
             app = tokenService.decode(token);
             Preconditions.checkNotNull(app);
         } catch (Exception e) {
             write(response, ApiResponseCode.INVALID_TOKEN_CODE, "无效的token");
             return null;
-        }
-
-        // todo:
-        if (Environment.fromEnvName(app.env).isProd() && !ip.equals(app.ip)) {
-            logger.info("auth client token failed, actualIp: {}, token: {}", ip, token);
-            write(response, ApiResponseCode.ILLEGAL_IP_CODE, "机器ip校验失败");
-            return null;
-        }
-
-        if (!validEnvTypes.contains(app.env)) {
-            write(response, ApiResponseCode.INVALID_MACHINE_ENVIRONMENT_CODE, "机器环境无效");
-            return null;
-        }
-        String machineProfile = app.env + ":" + buildGroup;
-
-
-        if (Strings.isNullOrEmpty(fileProfile)) {
-            fileProfile = machineProfile;
         }
 
         try {
@@ -451,13 +432,6 @@ public class ClientUploadController extends AbstractControllerHelper {
             return null;
         }
 
-        try {
-            checkFileProfileValid(machineProfile, fileProfile, version);
-        } catch (Exception e) {
-            logger.error("校验profile失败", e);
-            write(response, ApiResponseCode.NO_MODIFY_FILE_PERMISSION_CODE, "没有修改文件的权限");
-            return null;
-        }
 
         ConfigMeta meta;
         try {

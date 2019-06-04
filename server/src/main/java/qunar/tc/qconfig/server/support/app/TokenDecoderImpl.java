@@ -9,9 +9,6 @@ import qunar.tc.qconfig.common.util.TokenUtil;
 @Service
 public class TokenDecoderImpl implements TokenDecoder {
 
-    static byte[] key1 = new byte[]{120, 36, -88, 29, -96, 57, -119, -128, 78, 123, -87, -33, 72, 96, 55, -83};
-
-    // TODO: 2018/11/14 添加实现
     @Override
     public String decodeToken(String token) {
         return TokenUtil.decode(token);

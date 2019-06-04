@@ -129,7 +129,7 @@ class QConfigHttpServerClient implements QConfigServerClient {
                     return this;
                 }
 
-                //这里更改了设计， subEnv表示子环境，EnvName表示大环境，以前的profile表示 env:subEnv
+                //这里更改了设计， subEnv表示子环境，EnvName表示大环境，profile表示 env:subEnv
                 builder.addHeader(Constants.TOKEN_NAME, token)
                         .addHeader(Constants.SUB_ENV, EnvironmentAware.determinedEnv())
                         .addHeader(Constants.PORT, String.valueOf(ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getPort()))
