@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:spring.xml
+            WEB-INF/web-servlet.xml
+        </param-value>
+    </context-param>
+
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+    <listener>
+        <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+    </listener>
+
+    <!-- 不支持delete options的浏览器解决方案 -->
+    <filter>
+        <filter-name>HttpMethodFilter</filter-name>
+        <filter-class>org.springframework.web.filter.HiddenHttpMethodFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>HttpMethodFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>clearFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.ClearFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>clearFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>RedirectFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.RedirectFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RedirectFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+<!--    <filter>-->
+<!--        <filter-name>springSecurityFilterChain</filter-name>-->
+<!--        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>springSecurityFilterChain</filter-name>-->
+<!--        <url-pattern>/*</url-pattern>-->
+<!--    </filter-mapping>-->
+
+    <filter>
+        <filter-name>loginFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.LoginFilter</filter-class>
+        <init-param>
+            <param-name>ignorePath</param-name>
+            <param-value>/qconfig/api,/qconfig/login</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>loginFilter</filter-name>
+        <url-pattern>/qconfig/*</url-pattern>
+    </filter-mapping>
+
+
+    <filter>
+        <filter-name>adminAuthorizationFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.AdminAuthorizationFilter</filter-class>
+        <init-param>
+            <param-name>controller</param-name>
+            <param-value>adminAuthorizationService</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>adminAuthorizationFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>groupAuthorizationFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.RepeatableReadAuthorizationFilter</filter-class>
+        <init-param>
+            <param-name>controller</param-name>
+            <param-value>groupAuthorizationService</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>groupAuthorizationFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+    <filter>
+        <filter-name>recentlyAccessedFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.security.RecentlyAccessedFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>recentlyAccessedFilter</filter-name>
+        <url-pattern>*.do</url-pattern>
+    </filter-mapping>
+
+
+    <servlet>
+        <servlet-name>web</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>web</servlet-name>
+        <url-pattern>/</url-pattern><!--这个插件的逻辑要用的-->
+        <url-pattern>*.do</url-pattern>
+        <url-pattern>*.htm</url-pattern>
+        <url-pattern>/api/config/upload</url-pattern>
+        <url-pattern>/api/config/latestsnapshot</url-pattern>
+        <url-pattern>/api/config/status</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>uploadFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.admin.web.api.UploadFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>uploadFilter</filter-name>
+        <url-pattern>/api/config/upload</url-pattern>
+        <url-pattern>/api/config/latestsnapshot</url-pattern>
+        <url-pattern>/api/config/status</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.htm</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.html</url-pattern>
+        <url-pattern>*.js</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.map</url-pattern>
+        <url-pattern>*.woff</url-pattern>
+        <url-pattern>*.ttf</url-pattern>
+        <url-pattern>*.png</url-pattern>
+        <url-pattern>*.svg</url-pattern>
+    </servlet-mapping>
+</web-app>

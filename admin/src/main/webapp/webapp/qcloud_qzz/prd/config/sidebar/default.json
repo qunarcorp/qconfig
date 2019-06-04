@@ -1,0 +1,9 @@
+[
+	{
+		"name": "QConfig",
+		"className": "icon-config",
+		"collapsed": false,
+		"link": "#/qconfig",
+		"children": []
+	}
+]

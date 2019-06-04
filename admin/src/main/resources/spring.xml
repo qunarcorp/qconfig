@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:qconfig="http://www.qunar.com/schema/qconfig"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.qunar.com/schema/qconfig http://www.qunar.com/schema/qconfig.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config/>
+    <qconfig:annotation-driven/>
+
+    <qconfig:config files="config.properties" ignore-unresolvable="true"/>
+
+    <context:component-scan base-package="qunar.tc.qconfig.admin.*, qunar.tc.qconfig.servercommon.service">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <bean id="eventBus" class="com.google.common.eventbus.EventBus"/>
+
+    <bean id="httpClient" class="com.ning.http.client.AsyncHttpClient">
+    </bean>
+
+    <bean id="asyncEventBus"
+          class="qunar.tc.qconfig.admin.support.AsyncEventBusFactory"
+          factory-method="newAsyncEventBus"/>
+
+    <bean class="qunar.tc.qconfig.admin.event.EventBusRegisterBeanPostProcessor"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <import resource="dataSource.xml"/>
+</beans>

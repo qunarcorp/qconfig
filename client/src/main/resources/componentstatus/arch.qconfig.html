@@ -1,0 +1,36 @@
+<!--just for debug-->
+<!--{{data}}-->
+
+<div class="container" style="width: 100%">
+    <div class="row">
+        <div class="page-header">
+            <h3>查看当前应用内存中存储的QConfig配置文件信息
+                <small>配置更新后，请刷新页面查看最新内容</small>
+            </h3>
+        </div>
+    </div>
+
+    <div class="row text-center" ng-if="data.code != 200">
+        <h4 ng-bind="data.msg"></h4>
+    </div>
+
+    <div class="row" ng-if="data.code == 200">
+        <div class="col-md-3">
+            <div class="btn-group-vertical" style="width: 250px;" role="group" ng-repeat="fileGroup in data.body">
+
+                <span class="btn btn-primary" style="border-radius: 0; cursor: default"
+                      ng-bind="fileGroup.group"></span>
+                <button type="button" class="btn btn-default" style="border-radius: 0;"
+                        ng-repeat="file in fileGroup.files"
+                        ng-click="show(file.data)">{{file.fileName}}:{{file.version}}</button>
+
+            </div>
+        </div>
+
+        <div class="col-md-9">
+        <textarea class="form-control" rows="30" ng-bind="fileData" disabled="disabled">
+        </textarea>
+        </div>
+    </div>
+</div>
+

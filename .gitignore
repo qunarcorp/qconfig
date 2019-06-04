@@ -1,0 +1,35 @@
+# maven ignore
+target/
+
+# eclipse ignore
+.settings/
+.project
+.classpath
+classes/**
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+
+# temp ignore
+*.log
+*.cache
+*.diff
+*.patch
+*.tmp
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+# embedded tomcat
+tomcat.8080/**
+
+# package ignore (optional)
+# *.jar
+# *.war
+# *.zip
+# *.tar
+# *.tar.gz

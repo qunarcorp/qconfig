@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:qconfig="http://www.qunar.com/schema/qconfig"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                 http://www.qunar.com/schema/qconfig http://www.qunar.com/schema/qconfig.xsd
+         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <import resource="datasource.xml" />
+
+    <qconfig:config files="config.properties" ignore-unresolvable="true"/>
+
+    <context:annotation-config />
+    <qconfig:annotation-driven />
+
+    <context:component-scan base-package="qunar.tc.qconfig.*" />
+
+    <bean id="eurekaClientConfig" class="qunar.tc.qconfig.server.serverself.eureka.MyEurekaClientConfig"/>
+
+    <bean id="eurekaStore" class="qunar.tc.qconfig.server.serverself.eureka.EurekaStore"/>
+
+    <bean id="serverStore" name="serverStore" class="qunar.tc.qconfig.server.serverself.eureka.DefaultServerStore">
+        <constructor-arg name="serverDao" ref="defaultServerDao" />
+        <constructor-arg name="currentRoom" value="cn0"/>
+        <constructor-arg name="freshServerInfoIntervalMs" value="60000"/>
+    </bean>
+
+    <bean id="httpClient" class="com.ning.http.client.AsyncHttpClient">
+    </bean>
+</beans>

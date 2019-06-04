@@ -1,0 +1,490 @@
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:context.xml</param-value>
+    </context-param>
+
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+
+    <filter>
+        <filter-name>encodingFilter</filter-name>
+        <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+        <async-supported>true</async-supported>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
+        <init-param>
+            <param-name>forceEncoding</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>encodingFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>ipFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.ClientAddressFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/notokenclient/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/notifyPush</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/rest/configs</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>ipFilter</filter-name>
+        <url-pattern>/statistics/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>tokenFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.TokenFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>tokenFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>tokenFilter</filter-name>
+        <url-pattern>/notifyPush</url-pattern>
+    </filter-mapping>
+    <filter-mapping>
+        <filter-name>tokenFilter</filter-name>
+        <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>noTokenProfileFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.NoTokenProfileFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>noTokenProfileFilter</filter-name>
+        <url-pattern>/notokenclient/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>noTokenProfileFilter</filter-name>
+        <url-pattern>/rest/configs</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>groupFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.GroupFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>groupFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>groupFilter</filter-name>
+        <url-pattern>/notokenclient/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>groupFilter</filter-name>
+        <url-pattern>/rest/configs</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>accessLogV1Filter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.AccessLogV1Filter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>accessLogV1Filter</filter-name>
+        <url-pattern>/client/getconfig</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>accessLogV1Filter</filter-name>
+        <url-pattern>/client/forceload</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>accessLogV2Filter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.AccessLogV2Filter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>accessLogV2Filter</filter-name>
+        <url-pattern>/client/getconfigv2</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>accessLogV2Filter</filter-name>
+        <url-pattern>/client/forceloadv2</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>monitorFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.MonitorFilter</filter-class>
+        <async-supported>true</async-supported>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>monitorFilter</filter-name>
+        <url-pattern>/client/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>entrypointFilter</filter-name>
+        <filter-class>qunar.tc.qconfig.server.web.EntrypointFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>entrypointFilter</filter-name>
+        <url-pattern>/entrypoint</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>entrypointFilter</filter-name>
+        <url-pattern>/entrypointv2</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>entryPoint</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.EntryPointServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>entryPoint</servlet-name>
+        <url-pattern>/entrypoint</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>entryPointv2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.EntryPointV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>entryPointv2</servlet-name>
+        <url-pattern>/entrypointv2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>listeningClients</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.ListeningClientsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>listeningClients</servlet-name>
+        <url-pattern>/clients/listening</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>listeningClientsV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.ListeningClientsV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>listeningClientsV2</servlet-name>
+        <url-pattern>/clients/v2/listening</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkUpdateV1</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.CheckConfigV1Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>checkUpdateV1</servlet-name>
+        <url-pattern>/client/checkupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>checkUpdateV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.CheckConfigV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>checkUpdateV2</servlet-name>
+        <url-pattern>/client/checkupdatev2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getGroupFiles</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.GetGroupFilesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getGroupFiles</servlet-name>
+        <url-pattern>/client/getgroupfiles</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>noTokenCheckUpdate</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.NoTokenCheckConfigServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>noTokenCheckUpdate</servlet-name>
+        <url-pattern>/notokenclient/checkupdate</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>forceLoadV1</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.ForceLoadV1Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>forceLoadV1</servlet-name>
+        <url-pattern>/client/forceload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>forceLoadV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.ForceLoadV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>forceLoadV2</servlet-name>
+        <url-pattern>/client/forceloadv2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>noTokenForceLoad</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.NoTokenForceLoadServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>noTokenForceLoad</servlet-name>
+        <url-pattern>/notokenclient/forceload</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getConfigV1</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.GetConfigV1Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getConfigV1</servlet-name>
+        <url-pattern>/client/getconfig</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>noTokenGetConfig</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.NoTokenGetConfigServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>noTokenGetConfig</servlet-name>
+        <url-pattern>/notokenclient/getconfig</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getConfigV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.GetConfigV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getConfigV2</servlet-name>
+        <url-pattern>/client/getconfigv2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notify</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.UpdateConfigServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>notify</servlet-name>
+        <url-pattern>/notify</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyReference</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.UpdateReferenceServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>notifyReference</servlet-name>
+        <url-pattern>/notifyReference</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyPublic</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.UpdatePublicServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>notifyPublic</servlet-name>
+        <url-pattern>/notifyPublic</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>recordLoadingV1</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.RecordLoadingV1Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>recordLoadingV1</servlet-name>
+        <url-pattern>/client/recordloading</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>recordLoadingV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.RecordLoadingV2Servlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>recordLoadingV2</servlet-name>
+        <url-pattern>/client/recordloadingv2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>longPollingCheckupdatev2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.LongPollingCheckServlet</servlet-class>
+        <async-supported>true</async-supported>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>longPollingCheckupdatev2</servlet-name>
+        <url-pattern>/client/longPollingCheckupdatev2</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>getRestConfigFileV2</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.GetRestConfigFileServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>getRestConfigFileV2</servlet-name>
+        <url-pattern>/rest/configs</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyPush</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.PushConfigServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>notifyPush</servlet-name>
+        <url-pattern>/notifyPush</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyIpPush</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.IpPushConfigServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>notifyIpPush</servlet-name>
+        <url-pattern>/admin/notifyIpPush</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>notifyFixedVersion</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.FixedVersionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>notifyFixedVersion</servlet-name>
+        <url-pattern>/admin/notifyFixedVersion</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>configStatistics</servlet-name>
+        <servlet-class>qunar.tc.qconfig.server.web.servlet.ConfigStatisticsServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>configStatistics</servlet-name>
+        <url-pattern>/statistics/config</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>statusFilter</filter-name>
+        <filter-class>com.netflix.eureka.StatusFilter</filter-class>
+    </filter>
+
+    <!--<filter>-->
+    <!--<filter-name>requestAuthFilter</filter-name>-->
+    <!--<filter-class>com.netflix.eureka.ServerRequestAuthFilter</filter-class>-->
+    <!--</filter>-->
+    <filter>
+        <filter-name>gzipEncodingEnforcingFilter</filter-name>
+        <filter-class>com.netflix.eureka.GzipEncodingEnforcingFilter</filter-class>
+    </filter>
+
+    <filter>
+        <filter-name>jersey</filter-name>
+        <filter-class>com.sun.jersey.spi.container.servlet.ServletContainer</filter-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
+            <param-value>/(flex|images|js|css|jsp)/.*</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>com.sun.jersey;com.netflix</param-value>
+        </init-param>
+
+        <!-- GZIP content encoding/decoding -->
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.GZIPContentEncodingFilter</param-value>
+        </init-param>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>statusFilter</filter-name>
+        <url-pattern>/eureka/*</url-pattern>
+    </filter-mapping>
+
+    <!--<filter-mapping>-->
+    <!--<filter-name>requestAuthFilter</filter-name>-->
+    <!--<url-pattern>/eureka/*</url-pattern>-->
+    <!--</filter-mapping>-->
+
+    <filter-mapping>
+        <filter-name>gzipEncodingEnforcingFilter</filter-name>
+        <url-pattern>/v2/apps</url-pattern>
+        <url-pattern>/v2/apps/*</url-pattern>
+    </filter-mapping>
+
+    <filter-mapping>
+        <filter-name>jersey</filter-name>
+        <url-pattern>/eureka/*</url-pattern>
+    </filter-mapping>
+
+    <welcome-file-list>
+        <welcome-file>jsp/status.jsp</welcome-file>
+    </welcome-file-list>
+</web-app>

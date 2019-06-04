@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>JSON Editor Example</title>
+
+    <!-- placeholders for the theme switcher -->
+    <link rel='stylesheet' id='theme_stylesheet' href="/css/bootstrap.min.css">
+    <link rel='stylesheet' id='icon_stylesheet' href="/css/font-awesome.min.css">
+
+    <style>[class*="foundicon-"] {
+        font-family: GeneralFoundicons;
+        font-style: normal;
+    }</style>
+    <script src='/js/form/jsoneditor.min.js'></script>
+</head>
+<body>
+<div class='container'>
+    <div class='row'>
+        <div class='span8 col-md-8 columns eight large-8'>
+            <h2>表单编辑器</h2>
+            <p>这里是一个 JSON Schema 的示例。详细的 JSON Schema 说明请参考<a href="http://json-schema.org/" target="_blank">官网</a>。</p>
+            <div id='editor'></div>
+        </div>
+        <div class='span4 col-md-4 columns four large-4'>
+            <h2>JSON 格式输出</h2>
+            <textarea id='output' style='width: 100%; height: 300px; font-family: monospace;'
+                      class='form-control'></textarea>
+        </div>
+        <div class='row'>
+            <div class='span12 col-md-12 columns twelve large-12'>
+                <h2>Schema</h2>
+                <p>可以修改 Schema ，然后通过更新按钮来更新上方的编辑表单
+                    <button class='btn btn-primary' id='setschema'>更新</button>
+                </p>
+
+                <textarea id='schema' style='width: 100%; height: 450px; font-family: monospace;'
+                          class='form-control'></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    (function () {
+        var JSONEditor = FormJSONEditor;
+
+        var schema;
+        // Default starting schema
+        if (!schema) {
+            schema = {
+                title: "Person",
+                type: "object",
+                properties: {
+                    name: {
+                        type: "string",
+                        description: "First and Last name",
+                        minLength: 4,
+                        default: "Jeremy Dorn"
+                    },
+                    age: {
+                        type: "integer",
+                        default: 25,
+                        minimum: 18,
+                        maximum: 99
+                    },
+                    favorite_color: {
+                        type: "string",
+                        format: "color",
+                        title: "favorite color",
+                        default: "#ffa500"
+                    },
+                    gender: {
+                        type: "string",
+                        enum: ["male", "female"]
+                    },
+                    location: {
+                        type: "object",
+                        title: "Location",
+                        properties: {
+                            city: {
+                                type: "string",
+                                default: "San Francisco"
+                            },
+                            state: {
+                                type: "string",
+                                default: "CA"
+                            },
+                            citystate: {
+                                type: "string",
+                                description: "This is generated automatically from the previous two fields",
+                                template: "{{city}}, {{state}}",
+                                watch: {
+                                    city: 'location.city',
+                                    state: 'location.state'
+                                }
+                            }
+                        }
+                    },
+                    pets: {
+                        type: "array",
+                        format: "table",
+                        title: "Pets",
+                        uniqueItems: true,
+                        items: {
+                            type: "object",
+                            title: "Pet",
+                            properties: {
+                                type: {
+                                    type: "string",
+                                    enum: ["cat", "dog", "bird", "reptile", "other"],
+                                    default: "dog"
+                                },
+                                name: {
+                                    type: "string"
+                                }
+                            }
+                        },
+                        default: [
+                            {
+                                type: "dog",
+                                name: "Walter"
+                            }
+                        ]
+                    }
+                }
+            }
+        }
+
+        // Divs/textareas on the page
+        var $schema = document.getElementById('schema');
+        var $output = document.getElementById('output');
+        var $editor = document.getElementById('editor');
+
+        // Buttons
+        var $set_schema_button = document.getElementById('setschema');
+
+        var jsoneditor;
+
+        var reload = function (keep_value) {
+            if (jsoneditor) jsoneditor.destroy();
+            jsoneditor = new JSONEditor($editor, {
+                schema: schema,
+                disable_edit_json: true,
+                no_additional_properties: true
+            });
+            window.jsoneditor = jsoneditor;
+
+            // When the value of the editor changes, update the JSON output and validation message
+            jsoneditor.on('change', function () {
+                var json = jsoneditor.getValue();
+                $output.value = JSON.stringify(json, null, 2);
+            });
+        };
+
+        // Start the schema and output textareas with initial values
+        $schema.value = JSON.stringify(schema, null, 2);
+        $output.value = '';
+
+        // Update the schema when the button is clicked
+        $set_schema_button.addEventListener('click', function () {
+            try {
+                schema = JSON.parse($schema.value);
+            }
+            catch (e) {
+                alert('Invalid Schema: ' + e.message);
+                return;
+            }
+
+            reload();
+        });
+
+        JSONEditor.defaults.options.theme = 'bootstrap2';
+        JSONEditor.defaults.options.iconlib = 'bootstrap2';
+        JSONEditor.defaults.options.object_layout = 'normal';
+        JSONEditor.defaults.options.show_errors = 'interaction';
+
+        reload();
+    })();
+</script>
+</body>
+</html>

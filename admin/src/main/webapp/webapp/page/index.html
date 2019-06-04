@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>QCloud</title>
+	<link rel="shortcut icon" href="/webapp/font/favicon.png" />
+	<link rel="stylesheet" href="//unpkg.com/element-ui@1.3.7/lib/theme-default/index.css">
+	<link rel="stylesheet" href="/webapp/qcloud_qzz/prd/styles/common/index@42943265455fb404eb34.css">
+	<link rel="stylesheet" href="/webapp/qcloud_qzz/prd/styles/index@086350d64b5be3c5730f.css">
+</head>
+
+<body>
+	<div id="app" v-cloak :class="[useIframe ? 'use-iframe': '', 'container', 'element-reset']">
+		<qcloud-header id="header"></qcloud-header>
+		<div class="main" v-if="hasSidebar">
+			<Sidebar id="sidebar" ref="sidebar"></Sidebar>
+			<div class="load-container" id="js-container" v-loading="load">
+				<div class="content" id="content" ref="content">
+					<router-view></router-view>
+				</div>
+			</div>
+		</div>
+		<div class="main container-height" v-if="!hasSidebar">
+			<div id="js-container" v-loading="load" style="height:100%">
+				<div class="consoleoverall-content" id="content" ref="content">
+					<router-view></router-view>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	<script src="//lib.baomitu.com/vue/2.3.4/vue.js" charset="utf-8"></script>
+	<script src="//unpkg.com/element-ui@1.3.7/lib/index.js" charset="utf-8"></script>
+	<script src="https://cdn.bootcss.com/echarts/3.6.2/echarts.min.js" charset="utf-8"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.9/ace.js" charset="utf-8"></script>
+	<script src="/webapp/qcloud_qzz/prd/lib@bb6460a1344afc409c0b.js"></script>
+	<script src="/webapp/qcloud_qzz/prd/scripts/index@467f7ef0f41f414cd922.js"></script>
+
+
+		
+
+</body>
+
+</html>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <appender name="serverLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/qconfigserver.%d{yyyy-MM-dd-HH}.log</fileNamePattern>
+            <maxHistory>720</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %thread %-5p %c{36}:%L %X{app}:%X{ip}:%X{port}] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="accesslog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/accesslog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %5p %X{app}:%X{ip}:%X{port}] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="eurekalog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/eurekalog.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %5p %X{app}:%X{ip}:%X{port}] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="entryPoint" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${catalina.base}/logs/entryPoint.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %5p %X{app}:%X{ip}:%X{port}] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>[%d{yyyy-MM-dd HH:mm:ss} %thread %-5p %c{36}:%L %X{app}:%X{ip}:%X{port}] %m%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="qunar.tc.qconfig.server.web.TokenFilter" level="info" additivity="false">
+        <appender-ref ref="accesslog" />
+    </logger>
+
+    <logger name="qunar.tc.qconfig.entryPoint" level="info" additivity="false">
+        <appender-ref ref="entryPoint" />
+    </logger>
+
+    <logger name="qunar.tc.qconfig.server.service.task" level="info" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="qunar.tc.qconfig.server.dao.impl.LocalFileConfigDaoImpl" level="info" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="qunar.tc.qconfig.server.eureka" level="info" additivity="false">
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="qunar.tc.qconfig.server" level="info" additivity="false">
+        <appender-ref ref="serverLog" />
+    </logger>
+
+    <logger name="com.netflix.discovery" level="info" additivity="false">
+        <appender-ref ref="eurekalog"/>
+    </logger>
+    <logger name="com.netflix.eureka" level="info" additivity="false">
+        <appender-ref ref="eurekalog"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="console"/>
+    </root>
+</configuration>

@@ -1,0 +1,1 @@
+ALTER TABLE `config_snapshot` MODIFY `content` mediumtext NOT NULL COMMENT '配置内容';
