@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import qunar.tc.qconfig.admin.service.UserContextService;
@@ -97,10 +98,14 @@ public class LoginFilter implements Filter {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         if (authentication == null) {
-            return null;
+            account.setUserId("admin");
+            return account;
         }
 
-        account.setUserId("admin");
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
+                .getAuthentication()
+                .getPrincipal();
+        account.setUserId(userDetails.getUsername());
         return account;
     }
 

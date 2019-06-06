@@ -200,9 +200,7 @@ public class PermissionController extends AbstractControllerHelper {
             }
 
             for (PermissionInfo permissionInfo : permissionService.getPermissionListByGroup(group)) {
-                if (developers.contains(permissionInfo.getRtxId())) {
-                    permissionInfoMap.put(permissionInfo.getRtxId(), permissionInfo);
-                }
+                permissionInfoMap.put(permissionInfo.getRtxId(), permissionInfo);
             }
         } else {
             for (FilePermissionInfo permissionInfo : permissionService.getFilePermissionListByGroupAndDataId(group, dataId)) {

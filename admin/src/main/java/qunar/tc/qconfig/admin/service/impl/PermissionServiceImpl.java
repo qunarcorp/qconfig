@@ -263,11 +263,6 @@ public class PermissionServiceImpl implements PermissionService {
             return true;
         }
 
-        // beta下qa默认拥有所有权限
-        if (environment.isBeta() && userContext.isQa()) {
-            return true;
-        }
-
         return (getPermissionNeed(permissionType, environment) & getPermissionWhenUserHasInGroup(group)) != 0;
     }
 

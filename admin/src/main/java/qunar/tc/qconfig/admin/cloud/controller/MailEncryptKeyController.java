@@ -16,7 +16,6 @@ import qunar.tc.qconfig.admin.web.controller.AbstractControllerHelper;
 import qunar.tc.qconfig.common.bean.JsonV2;
 import qunar.tc.qconfig.servercommon.bean.ConfigMeta;
 import org.springframework.web.bind.annotation.ResponseBody;
-import qunar.tc.qconfig.servercommon.util.QCloudUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -43,7 +42,7 @@ public class MailEncryptKeyController extends AbstractControllerHelper {
         checkLegalMeta(meta);
         try {
             Map<String, Object> resultMap = Maps.newHashMap();
-            resultMap.put("group", QCloudUtils.getAppFromGroup(group));
+            resultMap.put("group", group);
             resultMap.put("dataId", dataId);
             if (!dataId.endsWith(".properties")) {
                 resultMap.put("encrypts", ImmutableMap.of());

@@ -20,7 +20,6 @@ import qunar.tc.qconfig.admin.web.security.AdminService;
 import qunar.tc.qconfig.common.support.Application;
 import qunar.tc.qconfig.common.util.Environment;
 import qunar.tc.qconfig.common.util.ProfileUtil;
-import qunar.tc.qconfig.servercommon.util.QCloudUtils;
 
 import javax.annotation.Resource;
 import java.util.*;
@@ -28,7 +27,6 @@ import java.util.*;
 /**
  * @author zhenyu.nie created on 2014 2014/5/16 15:09
  */
-// TODO: 2019-05-15 这里未处理
 @Service
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class UserContextServiceImpl implements UserContextService {
@@ -67,23 +65,23 @@ public class UserContextServiceImpl implements UserContextService {
     @Resource
     private EnvironmentService environmentService;
 
-    private static ThreadLocal<Account> account = new ThreadLocal<Account>();
+    private static ThreadLocal<Account> account = new ThreadLocal<>();
 
-    private ThreadLocal<String> ip = new ThreadLocal<String>();
+    private ThreadLocal<String> ip = new ThreadLocal<>();
 
-    private ThreadLocal<Map<String, Optional<Integer>>> permissions = new ThreadLocal<Map<String, Optional<Integer>>>();
+    private ThreadLocal<Map<String, Optional<Integer>>> permissions = new ThreadLocal<>();
 
     // group -> group info
-    private ThreadLocal<Map<String, Application>> groups = new ThreadLocal<Map<String, Application>>();
+    private ThreadLocal<Map<String, Application>> groups = new ThreadLocal<>();
 
-    private ThreadLocal<Map<String, Application>> accountGroups = new ThreadLocal<Map<String, Application>>();
+    private ThreadLocal<Map<String, Application>> accountGroups = new ThreadLocal<>();
 
     // 非本人所属的group
-    private ThreadLocal<Map<String, Optional<Application>>> extraGroups = new ThreadLocal<Map<String, Optional<Application>>>();
+    private ThreadLocal<Map<String, Optional<Application>>> extraGroups = new ThreadLocal<>();
 
-    private ThreadLocal<Set<String>> accessibleGroups = new ThreadLocal<Set<String>>();
+    private ThreadLocal<Set<String>> accessibleGroups = new ThreadLocal<>();
 
-    private ThreadLocal<Table<String, String, Integer>> filePermissions = new ThreadLocal<Table<String, String, Integer>>();
+    private ThreadLocal<Table<String, String, Integer>> filePermissions = new ThreadLocal<>();
 
     private ThreadLocal<Map<String, Set<Environment>>> groupEnvironments = new ThreadLocal<>();
 
@@ -169,14 +167,13 @@ public class UserContextServiceImpl implements UserContextService {
     @Override
     public Set<String> getEnvs(String group) {
         Map<String, Set<String>> totalEnvs = getGroupTotalEnvs().get(group);
-        return totalEnvs != null ? totalEnvs.keySet() : ImmutableSet.<String>of();
+        return totalEnvs != null ? totalEnvs.keySet() : ImmutableSet.of();
     }
 
     @Override
     public Map<String, Set<String>> getTotalEnvs(String group) {
-        String app = QCloudUtils.getAppFromGroup(group);
-        Map<String, Set<String>> result = getGroupTotalEnvs().get(app);
-        return result != null ? result : ImmutableMap.<String, Set<String>>of();
+        Map<String, Set<String>> result = getGroupTotalEnvs().get(group);
+        return result != null ? result : ImmutableMap.of();
     }
 
     @Override
@@ -263,7 +260,7 @@ public class UserContextServiceImpl implements UserContextService {
         }
         Map<String, Set<String>> resultMap = Maps.newHashMapWithExpectedSize(profileMapWithAccount.size());
         for (Map.Entry<String, Set<String>> profileEntry : profileMapWithAccount.entrySet()) {
-            String groupWithoutAccount = QCloudUtils.getAppFromGroup(profileEntry.getKey());
+            String groupWithoutAccount = profileEntry.getKey();
             resultMap.put(groupWithoutAccount, profileEntry.getValue());
         }
         return resultMap;
@@ -434,16 +431,9 @@ public class UserContextServiceImpl implements UserContextService {
         return adminService.isAdmin(getRtxId());
     }
 
-    // TODO: 2019-05-15 这里处理QA问题
-    @Override
-    public boolean isQa() {
-        return false;
-    }
-
     @Override
     public boolean isLeaderOf(String group) {
         //tole
-        group = QCloudUtils.getAppFromGroup(group);
         if (isAdmin()) {
             return true;
         }
@@ -454,7 +444,6 @@ public class UserContextServiceImpl implements UserContextService {
 
     @Override
     public Set<String> getDevelopers(String group) {
-        group = QCloudUtils.getAppFromGroup(group);
         logger.debug("get relative people with group [{}]", group);
         Application application = groups.get().get(group);
         if (application == null) {
@@ -481,7 +470,6 @@ public class UserContextServiceImpl implements UserContextService {
 
     @Override
     public Set<String> getOwners(String group) {
-        group = QCloudUtils.getAppFromGroup(group);
         Application application = groups.get().get(group);
         if (application == null) {
             application = getExtraGroupInfo(group);
@@ -498,7 +486,6 @@ public class UserContextServiceImpl implements UserContextService {
         if (Strings.isNullOrEmpty(group)) {
             return null;
         }
-        group = QCloudUtils.getAppFromGroup(group);
         Map<String, Optional<Application>> extras = extraGroups.get();
         if (extras == null) {
             extras = Maps.newHashMap();
@@ -570,9 +557,7 @@ public class UserContextServiceImpl implements UserContextService {
         groups.set(ImmutableMap.copyOf(map));
     }
 
-    // todo: corp
     private void setFilePermissions() {
-//        List<FilePermissionInfo> filePermissionInfos = permissionDao.selectFilePermissionsByRtxId(getRtxId());
         List<FilePermissionInfo> filePermissionInfos = permissionService.getFilePermissionListByRtxId(getRtxId());
         ImmutableTable.Builder<String, String, Integer> builder = ImmutableTable.builder();
         for (FilePermissionInfo filePermissionInfo : filePermissionInfos) {

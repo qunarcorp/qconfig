@@ -105,9 +105,4 @@ public class TokenUtil {
         return Base64.getDecoder().decode(keyWord);
     }
 
-    public static void main(String[] args) {
-        System.out.println(encode("qconfig"));
-        System.out.println(decode(encode("qconfig ")));
-        String a = "iaH6P5AMUHOjgCb2e5yLYaIHxEn8ptneJdyISxWdNIIKa1hi1o03+U5zQObSzFMDA7NXaw1asyPMIn2dwWvZn6rO+VWKGAdzilzj3K2YZs2fAD5BE61HgRN0pf8gVICzqClJ81+d9aZJ05X+3ZNWKNh70gKtcd+YKMgW6CGidHc=";
-    }
 }

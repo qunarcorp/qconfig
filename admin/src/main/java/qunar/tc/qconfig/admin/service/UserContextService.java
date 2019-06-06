@@ -54,8 +54,6 @@ public interface UserContextService {
 
     boolean isAdmin();
 
-    boolean isQa();
-
     boolean isLeaderOf(String group);
 
     Set<String> getOwners(String group);
