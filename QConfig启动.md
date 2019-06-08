@@ -26,7 +26,7 @@
 
       访问 /webapp/page/index.html#/qconfig/appinfo
 
-      输入应用带好和应用名称。
+      输入应用代号和应用名称。
 
    2. 创建QConfig所需的配置文件
 
