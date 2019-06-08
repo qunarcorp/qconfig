@@ -19,6 +19,9 @@ public class ServiceFinder<T> {
     private static final ConcurrentHashMap<Class<?>, ServiceFinder<?>> instanceMap = new ConcurrentHashMap<>();
     private static final Map<Class, String> errorMessages = new HashMap<>();
 
+    static {
+        errorMessages.put(ServerManagement.class, "请检查是否引用了qconfig-common，并且包版本一致");
+    }
 
     private final Supplier<T> supplier;
 
