@@ -1,17 +1,11 @@
 package qunar.tc.qconfig.server.web;
 
-import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
-import qunar.tc.qconfig.common.application.ServerManager;
-import qunar.tc.qconfig.common.bean.AppServerConfig;
 import qunar.tc.qconfig.common.util.Constants;
-import qunar.tc.qconfig.server.support.app.TokenDecoder;
 import qunar.tc.qconfig.server.support.context.ClientInfoService;
-import qunar.tc.qconfig.server.support.monitor.Monitor;
-import qunar.tc.qconfig.servercommon.service.EnvironmentMappingService;
 import qunar.tc.qconfig.servercommon.util.RequestUtil;
 
 import javax.servlet.*;
@@ -27,10 +21,6 @@ public class EntrypointFilter implements Filter {
 
     private ClientInfoService clientInfoService;
 
-    private EnvironmentMappingService envMappingService;
-
-    private TokenDecoder tokenDecoder;
-
     private static final Logger entryLgger = LoggerFactory.getLogger("qunar.tc.qconfig.entryPoint");
 
     @Override
@@ -41,21 +31,17 @@ public class EntrypointFilter implements Filter {
         }
 
         this.clientInfoService = context.getBean(ClientInfoService.class);
-        this.envMappingService = context.getBean(EnvironmentMappingService.class);
-        this.tokenDecoder = context.getBean(TokenDecoder.class);
     }
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        String token = request.getHeader(Constants.TOKEN_NAME);
-        if (!Strings.isNullOrEmpty(token)) {
-            String group = tokenDecoder.decodeToken(token);
-            clientInfoService.setGroup(group);
-            clientInfoService.setEnv(request.getHeader(Constants.ENV_NAME));
-            clientInfoService.setProfile(request.getHeader(Constants.PROFILE_NAME));
-            clientInfoService.setIp(RequestUtil.getRealIP(request));
-        }
+
+        clientInfoService.setGroup(Constants.GROUP_NAME);
+        clientInfoService.setEnv(request.getHeader(Constants.ENV_NAME));
+        clientInfoService.setProfile(request.getHeader(Constants.PROFILE_NAME));
+        clientInfoService.setIp(RequestUtil.getRealIP(request));
+
 
         try {
             chain.doFilter(servletRequest, servletResponse);

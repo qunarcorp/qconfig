@@ -15,8 +15,7 @@ import qunar.tc.qconfig.client.MapConfig;
 import qunar.tc.qconfig.client.TypedConfig;
 import qunar.tc.qconfig.common.util.Constants;
 import qunar.tc.qconfig.common.util.ProfileUtil;
-import qunar.tc.qconfig.server.serverself.serverinfo.ClusterType;
-import qunar.tc.qconfig.server.support.app.TokenDecoder;
+import qunar.tc.qconfig.common.util.TokenUtil;
 import qunar.tc.qconfig.server.support.monitor.Monitor;
 import qunar.tc.qconfig.server.support.context.ClientInfoService;
 import qunar.tc.qconfig.servercommon.service.EnvironmentMappingService;
@@ -28,7 +27,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -42,8 +40,6 @@ public class TokenFilter implements Filter {
     private ClientInfoService clientInfoService;
 
     private EnvironmentMappingService envMappingService;
-
-    private TokenDecoder tokenDecoder;
 
     private static volatile Set<String> forbiddenApps = ImmutableSet.of();
     private static volatile Set<String> whiteListApps = ImmutableSet.of();
@@ -94,7 +90,6 @@ public class TokenFilter implements Filter {
         }
 
         envMappingService = context.getBean(EnvironmentMappingService.class);
-        tokenDecoder = context.getBean(TokenDecoder.class);
         clientInfoService = context.getBean(ClientInfoService.class);
     }
 
@@ -109,7 +104,7 @@ public class TokenFilter implements Filter {
 
         logger.debug("client access config, profile {}, token: {}", profile, token);
 
-        String group = tokenDecoder.decodeToken(token);
+        String group = TokenUtil.decode(token);
 
         if (group == null) {
             logger.error("decode client token failed, token: {}", token);
