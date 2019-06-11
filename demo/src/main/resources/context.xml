@@ -10,6 +10,6 @@
     <context:annotation-config />
     <qconfig:annotation-driven />
 
-    <context:component-scan base-package="qunar.tc.qconfig.demo.config" />
+    <context:component-scan base-package="qunar.tc.qconfig.demo" />
     <!--<bean class="qunar.tc.qconfig.demo.DemoBean" />-->
 </beans>

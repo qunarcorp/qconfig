@@ -39,8 +39,8 @@ public class FileDeleteTask {
     public FileDeleteTask() {
         AppServerConfig appConfig = ServerManager.getInstance().getAppServerConfig();
         if (appConfig == null ||  Strings.isNullOrEmpty(appConfig.getIp())) {
-            logger.error("无法连接应用中心");
-            throw new RuntimeException("无法连接应用中心");
+            logger.error("无法获取应用信息");
+            throw new RuntimeException("无法获取应用信息");
         }
         ip = appConfig.getIp();
     }

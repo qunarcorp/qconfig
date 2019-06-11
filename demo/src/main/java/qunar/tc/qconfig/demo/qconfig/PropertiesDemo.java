@@ -28,4 +28,9 @@ public class PropertiesDemo {
         logger.info("properties Demo properties word {}", word);
     }
 
+    @QConfig("dcdc.properties")
+    private void test(String word) {
+        logger.error(word);
+    }
+
 }

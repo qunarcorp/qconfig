@@ -2,6 +2,7 @@ package qunar.tc.qconfig.server.web.servlet;
 
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.context.WebApplicationContext;
 import qunar.tc.qconfig.common.util.Constants;
@@ -41,7 +42,7 @@ public class EntryPointV2Servlet extends HttpServlet {
     }
 
     private String getResult(HttpServletRequest req) {
-        List<String> httpEntryPoints = entryPointService.getHttpEntryPoints(req);
+        List<String> httpEntryPoints = Lists.newArrayList("127.0.0.1:8080");
         List<String> httpsEntryPoints = entryPointService.getHttpsEntryPoints(req);
         return COMMA_JOINER.join(httpEntryPoints)
                 + Constants.LINE

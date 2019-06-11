@@ -16,7 +16,6 @@ import qunar.tc.qconfig.client.exception.ResultUnexpectedException;
 import qunar.tc.qconfig.common.application.ServerManagement;
 import qunar.tc.qconfig.common.application.ServerManager;
 import qunar.tc.qconfig.common.application.ServiceFinder;
-import qunar.tc.qconfig.common.codec.CodecRegister;
 import qunar.tc.qconfig.common.util.ChecksumAlgorithm;
 import qunar.tc.qconfig.common.util.ConfigLogType;
 import qunar.tc.qconfig.common.util.Constants;
@@ -376,8 +375,7 @@ class QConfigHttpServerClient implements QConfigServerClient {
                     .addQueryParam(Constants.GROUP_NAME, meta.getGroupName())
                     .addQueryParam(Constants.DATAID_NAME, meta.getFileName())
                     .addQueryParam(Constants.VERSION_NAME, String.valueOf(version.getVersion()))
-                    .addQueryParam(Constants.LOAD_PROFILE_NAME, version.getProfile())
-                    .addQueryParam(Constants.ACCEPT_ENCODING, CodecRegister.register.joinNames());
+                    .addQueryParam(Constants.LOAD_PROFILE_NAME, version.getProfile());
         }
 
         @Override
@@ -427,16 +425,8 @@ class QConfigHttpServerClient implements QConfigServerClient {
             String cacheControl = response.getHeader(Constants.CACHE_CONTROL);
             String contentEncoding = response.getHeader(Constants.CONTENT_ENCODING);
             FeatureRemote featureRemote = FeatureRemote.create()
-                    .setCodec(CodecRegister.register.getCodec(contentEncoding))
                     .setIsLocalCache(!Constants.CACHE_NO_STORE.equals(cacheControl))
                     .build();
-            if (featureRemote.getCode() != null) {
-                try {
-                    body = featureRemote.getCode().decode(body);
-                } catch (Exception e) {
-                    logger.error("decode error", e);
-                }
-            }
             return new Snapshot<String>(versionProfile, body, featureRemote);
         }
 

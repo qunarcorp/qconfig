@@ -1,6 +1,5 @@
 package qunar.tc.qconfig.client;
 
-import qunar.tc.qconfig.common.codec.Codec;
 
 /**
  * 远端feature
@@ -11,25 +10,17 @@ import qunar.tc.qconfig.common.codec.Codec;
  */
 public class FeatureRemote {
 
-    public static final FeatureRemote DEFAULT = new FeatureRemote(null, true);
-
-    private Codec code;
+    public static final FeatureRemote DEFAULT = new FeatureRemote(true);
 
     private boolean isLocalCache;
 
-    private FeatureRemote(Codec code, boolean isLocalCache) {
-        this.code = code;
+    private FeatureRemote(boolean isLocalCache) {
         this.isLocalCache = isLocalCache;
     }
 
     public static final class Builder {
 
-        private FeatureRemote featureRemote = new FeatureRemote(null, true);
-
-        public Builder setCodec(Codec codec) {
-            featureRemote.setCode(codec);
-            return this;
-        }
+        private FeatureRemote featureRemote = new FeatureRemote(true);
 
         public Builder setIsLocalCache(boolean isLocalCache) {
             featureRemote.setLocalCache(isLocalCache);
@@ -45,16 +36,8 @@ public class FeatureRemote {
         return new Builder();
     }
 
-    public Codec getCode() {
-        return code;
-    }
-
     public boolean isLocalCache() {
         return isLocalCache;
-    }
-
-    public void setCode(Codec code) {
-        this.code = code;
     }
 
     public void setLocalCache(boolean localCache) {

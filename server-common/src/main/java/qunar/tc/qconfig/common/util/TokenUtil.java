@@ -99,7 +99,6 @@ public class TokenUtil {
     }
 
     private static byte[] getBytes(String path) throws IOException {
-        System.out.println(new ClassPathResource(path));
         File in = new ClassPathResource(path).getFile();
         String keyWord = Files.asCharSource(in, Charsets.UTF_8).read();
         return Base64.getDecoder().decode(keyWord);

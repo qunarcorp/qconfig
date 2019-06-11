@@ -1,0 +1,6 @@
+{
+  "outerA": 123,
+  "outerB": {
+    "inner": "aa"
+  }
+}

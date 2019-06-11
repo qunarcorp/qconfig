@@ -9,14 +9,8 @@ import java.util.Set;
  */
 public interface IAlarmService {
 
-    void sendAlarm(String var1, String var2, Set<String> var3, Set<AlarmType> var4);
+    void sendMailAlarm(String title, String content, Set<String> names);
 
-    void sendAllTypeAlarm(String var1, String var2, Set<String> var3);
-
-    void sendRtxAlarm(String var1, Set<String> var2);
-
-    void sendPhoneAlarm(String var1, Set<String> var2);
-
-    void sendMailAlarm(String var1, String var2, Set<String> var3);
+    void sendRtxAlarm(String titleWithContent, Set<String> rtxId);
 }
 

@@ -46,14 +46,6 @@ public class ServerManager implements ServerManagement{
         }
     }
 
-    public Object getHandlers() {
-        return null;
-    }
-
-    public void destroy() {
-
-    }
-
     @Override
     public boolean healthCheck() {
         return true;

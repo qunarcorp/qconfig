@@ -10,28 +10,14 @@ import java.util.Set;
  */
 @Component
 public class MockAlarmService implements IAlarmService {
-    @Override
-    public void sendAlarm(String var1, String var2, Set<String> var3, Set<AlarmType> var4) {
-
-    }
-
-    @Override
-    public void sendAllTypeAlarm(String var1, String var2, Set<String> var3) {
-
-    }
-
-    @Override
-    public void sendRtxAlarm(String var1, Set<String> var2) {
-
-    }
-
-    @Override
-    public void sendPhoneAlarm(String var1, Set<String> var2) {
-
-    }
 
     @Override
     public void sendMailAlarm(String var1, String var2, Set<String> var3) {
+
+    }
+
+    @Override
+    public void sendRtxAlarm(String titleWithContent, Set<String> rtxId) {
 
     }
 }
