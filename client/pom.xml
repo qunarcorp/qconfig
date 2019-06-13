@@ -65,10 +65,5 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.codahale.metrics</groupId>
-            <artifactId>metrics-core</artifactId>
-        </dependency>
-
     </dependencies>
 </project>

@@ -51,7 +51,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
  */
 @Controller
 @RequestMapping("/admin")
-public class AdminController extends AbstractController {
+public class AdminController extends AbstractControllerHelper {
 
     protected static final Logger logger = LoggerFactory.getLogger(AdminController.class);
 

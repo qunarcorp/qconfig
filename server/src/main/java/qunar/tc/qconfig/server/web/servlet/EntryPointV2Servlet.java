@@ -42,7 +42,7 @@ public class EntryPointV2Servlet extends HttpServlet {
     }
 
     private String getResult(HttpServletRequest req) {
-        List<String> httpEntryPoints = Lists.newArrayList("127.0.0.1:8080");
+        List<String> httpEntryPoints = entryPointService.getHttpEntryPoints(req);
         List<String> httpsEntryPoints = entryPointService.getHttpsEntryPoints(req);
         return COMMA_JOINER.join(httpEntryPoints)
                 + Constants.LINE

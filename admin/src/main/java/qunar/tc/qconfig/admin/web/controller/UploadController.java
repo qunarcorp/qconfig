@@ -17,7 +17,7 @@ import qunar.tc.qconfig.common.util.FileChecker;
  * @author zhenyu.nie created on 2014 2014/5/29 17:14
  */
 @Controller
-public class UploadController extends AbstractController {
+public class UploadController extends AbstractControllerHelper {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

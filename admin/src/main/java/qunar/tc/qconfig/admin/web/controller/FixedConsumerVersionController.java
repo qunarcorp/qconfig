@@ -20,7 +20,7 @@ import javax.annotation.Resource;
  * @since 2017/5/16
  */
 @Controller
-public class FixedConsumerVersionController extends AbstractController {
+public class FixedConsumerVersionController extends AbstractControllerHelper {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 

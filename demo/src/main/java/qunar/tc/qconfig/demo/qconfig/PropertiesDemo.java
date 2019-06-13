@@ -30,7 +30,7 @@ public class PropertiesDemo {
 
     @QConfig("dcdc.properties")
     private void test(String word) {
-        logger.error(word);
+        logger.info(word);
     }
 
 }

@@ -4,7 +4,7 @@ import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
+import qunar.tc.qconfig.common.application.ServerManager;
 
 /**
  * User: zhaohuiyu
@@ -16,7 +16,7 @@ public class EnvironmentAware {
 
     private static final String ENV_FILE = "qconfig.profile";
 
-    private static final ServerManagement serverManager = ServiceFinder.getService(ServerManagement.class);
+    private static final ServerManagement serverManager = ServerManager.getInstance();
     private static final EnvironmentAware INSTANCE = new EnvironmentAware();
     private final String profile;
 

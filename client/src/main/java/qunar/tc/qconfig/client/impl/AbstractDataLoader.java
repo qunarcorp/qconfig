@@ -10,18 +10,11 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.qconfig.client.Configuration;
 import qunar.tc.qconfig.client.DataLoader;
 import qunar.tc.qconfig.client.Feature;
-import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
 import qunar.tc.qconfig.common.support.concurrent.NamedThreadFactory;
 import qunar.tc.qconfig.common.util.Constants;
 import qunar.tc.qconfig.common.util.FileChecker;
 
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;

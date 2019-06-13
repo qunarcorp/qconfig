@@ -3,8 +3,7 @@ package qunar.tc.qconfig.client.impl;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
+import qunar.tc.qconfig.common.application.ServerManager;
 import qunar.tc.qconfig.common.enums.AppServerType;
 import qunar.tc.qconfig.common.util.Constants;
 import qunar.tc.qconfig.common.util.EnvironmentAware;
@@ -70,14 +69,14 @@ public class VersionProfile {
 
     private static String getEnv() {
         try {
-            return ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getEnv();
+            return ServerManager.getInstance().getAppServerConfig().getEnv();
         } catch (NoSuchMethodError error) {
             return getOldPrefix();
         }
     }
 
     private static String getOldPrefix() {
-        AppServerType type = ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getType();
+        AppServerType type =ServerManager.getInstance().getAppServerConfig().getType();
         if (type == null) {
             return "";
         }

@@ -3,8 +3,6 @@ package qunar.tc.qconfig.common.util;
 import com.google.common.base.Charsets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
 
 import java.io.IOException;
 import java.io.InputStream;

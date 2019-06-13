@@ -8,8 +8,7 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.qconfig.client.Feature;
 import qunar.tc.qconfig.client.UploadResult;
 import qunar.tc.qconfig.client.Uploader;
-import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
+import qunar.tc.qconfig.common.application.ServerManager;
 import qunar.tc.qconfig.common.bean.StatusType;
 
 import java.io.FileNotFoundException;
@@ -30,7 +29,7 @@ public class ConfigUploader implements Uploader {
 
     private static final String groupName = ((ConfigEngine) ConfigEngine.getInstance()).getGroupName();
 
-    public static final String DEFAULT_OPERATOR = ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getName();
+    public static final String DEFAULT_OPERATOR = ServerManager.getInstance().getAppServerConfig().getName();
 
     private static final String EMPTY_DESCRIPTION = "";
 

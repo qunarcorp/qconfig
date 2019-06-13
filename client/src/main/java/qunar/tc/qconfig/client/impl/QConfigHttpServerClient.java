@@ -13,9 +13,7 @@ import org.slf4j.LoggerFactory;
 import qunar.tc.qconfig.client.Feature;
 import qunar.tc.qconfig.client.FeatureRemote;
 import qunar.tc.qconfig.client.exception.ResultUnexpectedException;
-import qunar.tc.qconfig.common.application.ServerManagement;
 import qunar.tc.qconfig.common.application.ServerManager;
-import qunar.tc.qconfig.common.application.ServiceFinder;
 import qunar.tc.qconfig.common.util.ChecksumAlgorithm;
 import qunar.tc.qconfig.common.util.ConfigLogType;
 import qunar.tc.qconfig.common.util.Constants;
@@ -66,7 +64,7 @@ class QConfigHttpServerClient implements QConfigServerClient {
 
     @Override
     public ListenableFuture<TypedCheckResult> loadGroupFiles() {
-        return new CheckUpdateFuture(entryPoint.resolveHttpUrl(GET_GROUP_FILES, false), ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getName()).request();
+        return new CheckUpdateFuture(entryPoint.resolveHttpUrl(GET_GROUP_FILES, false), ServerManager.getInstance().getAppServerConfig().getName()).request();
     }
 
     @Override
@@ -131,7 +129,7 @@ class QConfigHttpServerClient implements QConfigServerClient {
                 //这里更改了设计， subEnv表示子环境，EnvName表示大环境，profile表示 env:subEnv
                 builder.addHeader(Constants.TOKEN_NAME, token)
                         .addHeader(Constants.SUB_ENV, EnvironmentAware.determinedEnv())
-                        .addHeader(Constants.PORT, String.valueOf(ServiceFinder.getService(ServerManagement.class).getAppServerConfig().getPort()))
+                        .addHeader(Constants.PORT, String.valueOf(ServerManager.getInstance().getAppServerConfig().getPort()))
                         .addHeader(Constants.ENV_NAME, ServerManager.getInstance().getAppServerConfig().getEnv());
                 Request request = builder.build();
                 final com.ning.http.client.ListenableFuture<Response> future = HttpClientHolder.INSTANCE.executeRequest(request);

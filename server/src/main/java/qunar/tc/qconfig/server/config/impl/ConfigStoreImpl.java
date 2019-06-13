@@ -94,7 +94,7 @@ public class ConfigStoreImpl implements ConfigStore {
                     }
                 });
 
-        Metrics.gauge("configFile.notFound.cache.hitRate", new Supplier<Double>() {
+        Metrics.gauge("configFile_notFound_cache_hitRate", new Supplier<Double>() {
             @Override
             public Double get() {
                 return configCache.stats().hitRate();
@@ -122,7 +122,6 @@ public class ConfigStoreImpl implements ConfigStore {
             return config;
         }
 
-        String groupId = configId.getData().getGroup();
         Monitor.notFoundConfigFileFromDiskCounter.inc();
         log.warn("config not found from disk: {}", configId);
         config = findFromDb(configId);

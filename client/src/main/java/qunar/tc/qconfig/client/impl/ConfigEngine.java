@@ -3,8 +3,7 @@ package qunar.tc.qconfig.client.impl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import qunar.tc.qconfig.client.DataLoader;
-import qunar.tc.qconfig.common.application.ServerManagement;
-import qunar.tc.qconfig.common.application.ServiceFinder;
+import qunar.tc.qconfig.common.application.ServerManager;
 import qunar.tc.qconfig.common.bean.AppServerConfig;
 
 /**
@@ -30,7 +29,7 @@ public class ConfigEngine extends AbstractDataLoader {
     public String getGroupName() {
         try {
             if (appName != null) return appName;
-            AppServerConfig appConfig = ServiceFinder.getService(ServerManagement.class).getAppServerConfig();
+            AppServerConfig appConfig = ServerManager.getInstance().getAppServerConfig();
             appName = appConfig.getName();
             return appName;
         } catch (Throwable e) {

@@ -48,7 +48,9 @@ public class MonitorFilter implements Filter {
             String contextPath = request.getServletPath();
             String recordPath = contextPath.substring(SERVLET_PREFIX.length() + 1, contextPath.length());
             if (!Strings.isNullOrEmpty(recordPath)) {
-                timer = Metrics.timer(recordPath + ".request." + clientInfoService.getEnv());
+                timer = Metrics.timer(recordPath + "_request_" + clientInfoService.getEnv(),
+                        new String[]{"env"},
+                        new String[]{clientInfoService.getEnv()}) ;
             }
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {

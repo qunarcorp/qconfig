@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkArgument;
  * @author zhenyu.nie created on 2014 2014/5/28 22:22
  */
 @Controller
-public class BuildGroupController extends AbstractController {
+public class BuildGroupController extends AbstractControllerHelper {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
