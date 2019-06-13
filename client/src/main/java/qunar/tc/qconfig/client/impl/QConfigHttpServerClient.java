@@ -130,7 +130,8 @@ class QConfigHttpServerClient implements QConfigServerClient {
                 builder.addHeader(Constants.TOKEN_NAME, token)
                         .addHeader(Constants.SUB_ENV, EnvironmentAware.determinedEnv())
                         .addHeader(Constants.PORT, String.valueOf(ServerManager.getInstance().getAppServerConfig().getPort()))
-                        .addHeader(Constants.ENV_NAME, ServerManager.getInstance().getAppServerConfig().getEnv());
+                        .addHeader(Constants.ENV_NAME, ServerManager.getInstance().getAppServerConfig().getEnv())
+                        .addHeader(Constants.PROFILE_NAME, ServerManager.getInstance().getAppServerConfig().getProfile());
                 Request request = builder.build();
                 final com.ning.http.client.ListenableFuture<Response> future = HttpClientHolder.INSTANCE.executeRequest(request);
 

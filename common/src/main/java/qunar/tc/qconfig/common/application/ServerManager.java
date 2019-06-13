@@ -77,7 +77,7 @@ public class ServerManager {
                     String room = Strings.nullToEmpty(appInfoMap.get(APP_ROOM_KEY));
                     String token = Strings.nullToEmpty(appInfoMap.get(TOKEN_KEY));
                     AppServerType type = AppServerType.valueOf(env);
-                    appConfig = new AppServerConfig(appCode, env, token, ip, port, type, profile, Strings.nullToEmpty(appInfoMap.get(APP_PROFILE_KEY)), room);
+                    appConfig = new AppServerConfig(appCode, env, token, ip, port, type, profile, Strings.nullToEmpty(null),  Strings.nullToEmpty(room));
                 }
             }
             return appConfig;

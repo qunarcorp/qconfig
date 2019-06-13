@@ -1,8 +1,13 @@
 package qunar.tc.qconfig.server.support.monitor;
 
+import com.google.common.cache.CacheBuilder;
+import com.google.common.cache.CacheLoader;
+import com.google.common.cache.LoadingCache;
 import qunar.tc.qconfig.common.metrics.Metrics;
 import qunar.tc.qconfig.common.metrics.QConfigCounter;
 import qunar.tc.qconfig.common.metrics.QConfigTimer;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * User: zhaohuiyu
@@ -11,12 +16,18 @@ import qunar.tc.qconfig.common.metrics.QConfigTimer;
  */
 public class Monitor {
 
-    public static final QConfigCounter notFoundConfigFileCounter = Metrics.counter("configFile_notFound");
 
-    public static final QConfigCounter notFoundConfigFileFromDiskCounter = Metrics.counter("configFile_notFound_disk");
+    public static void notFoundConfigFileCounterInc(String appId) {
+       Metrics.counter("configFile.notFound", new String[]{"appId"}, new String[]{appId}).inc();
+    }
 
-    public static final QConfigCounter notFoundConfigFileFromDbCounter = Metrics.counter("configFile_notFound_db");
+    public static void notFoundConfigFileFromDiskCounterInc(String appId) {
+        Metrics.counter("configFile.notFound.disk", new String[]{"appId"}, new String[]{appId}).inc();
+    }
 
+    public static void notFoundConfigFileFromDbCounterInc(String appId) {
+        Metrics.counter("configFile.notFound.db", new String[]{"appId"}, new String[]{appId}).inc();
+    }
     public static final QConfigCounter checkSumFailCounter = Metrics.counter("checkSum_failOf");
 
     public static final QConfigCounter forbidAccessCounter = Metrics.counter("access_forbid");
@@ -32,18 +43,6 @@ public class Monitor {
     public static final QConfigCounter notifyConfigTrivialCounter = Metrics.counter("config_notify_trivial");
 
     public static final QConfigTimer notifyConfigTimer = Metrics.timer("config_notify");
-
-    public static final QConfigCounter parseErrorMailRejectCounter = Metrics.counter("mail_parse_error_reject");
-
-    public static final QConfigCounter executeParseErrorMailFailCounter = Metrics.counter("execute_parse_error_mail_failOf");
-
-    public static final QConfigTimer parseErrorMailTimer = Metrics.timer("mail_parse_error_time");
-
-    public static final QConfigCounter sendMailFailCounter = Metrics.counter("server_mail_failOf");
-
-    public static final QConfigCounter sendQTalkFailCounter = Metrics.counter("server_qtalk_failOf");
-
-    public static final QConfigCounter getAppInfoFailCounter = Metrics.counter("server_getAppInfo_failOf");
 
     public static final QConfigCounter returnChangeFailCounter = Metrics.counter("server_change_return_failOf");
 

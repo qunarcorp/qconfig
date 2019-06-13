@@ -59,7 +59,7 @@ public abstract class AbstractLoadConfigServlet extends AbstractServlet {
             resp.setHeader(Constants.CHECKSUM_NAME, content.getCheckSum());
             resp.getWriter().write(content.getData());
         } catch (ConfigNotFoundException e) {
-            Monitor.notFoundConfigFileCounter.inc();
+            Monitor.notFoundConfigFileCounterInc(group);
             logger.warn("未能定位到配置文件, {}. {}", versionData, e);
             resp.setHeader(Constants.VERSION_NAME, String.valueOf(version));
             resp.setStatus(HttpServletResponse.SC_NOT_FOUND);

@@ -50,7 +50,7 @@ public class MonitorFilter implements Filter {
             if (!Strings.isNullOrEmpty(recordPath)) {
                 timer = Metrics.timer(recordPath + "_request_" + clientInfoService.getEnv(),
                         new String[]{"env"},
-                        new String[]{clientInfoService.getEnv()}) ;
+                        new String[]{clientInfoService.getEnv()});
             }
             filterChain.doFilter(servletRequest, servletResponse);
         } catch (Exception e) {

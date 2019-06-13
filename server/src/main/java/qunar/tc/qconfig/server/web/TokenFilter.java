@@ -99,10 +99,10 @@ public class TokenFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         String token = request.getHeader(Constants.TOKEN_NAME);
-        String profile = request.getHeader(Constants.PROFILE_NAME);
+        String subEnv = request.getHeader(Constants.SUB_ENV);
         String env = request.getHeader(Constants.ENV_NAME);
 
-        logger.debug("client access config, profile {}, token: {}", profile, token);
+        logger.debug("client access config, profile {}, token: {}", subEnv, token);
 
         String group = TokenUtil.decode(token);
 
@@ -121,9 +121,8 @@ public class TokenFilter implements Filter {
         }
 
         clientInfoService.setGroup(group);
-        String mappedEnv = envMappingService.getMappedEnv(env);
-        clientInfoService.setEnv(mappedEnv);
-        String clientProfile = Strings.isNullOrEmpty(profile) ? mappedEnv + ":" : mappedEnv + ":" + profile;
+        clientInfoService.setEnv(env);
+        String clientProfile = Strings.isNullOrEmpty(subEnv) ? env + ":" : env + ":" + subEnv;
         clientInfoService.setProfile(clientProfile);
         if (whiteListApps.contains(group)) {
             logger.debug("app:[{}] in white list", group);

@@ -400,7 +400,7 @@ public class ClientUploadController extends AbstractControllerHelper {
     private void write(HttpServletResponse response, int code, String message) throws IOException {
         String codeValue = String.valueOf(code);
         if (code != ApiResponseCode.OK_CODE) {
-            Monitor.CLIENT_UPDATE_FILE_COUNT.inc();
+            Monitor.clientUpdateFileCountInc(code);
             logger.info("client upload file failOf, code=[{}], message=[{}]", code, message);
         }
 

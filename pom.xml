@@ -761,4 +761,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>internal.repo</id>
+            <name>Internal repo</name>
+            <url>file:/Users/deepdown/.m2</url>
+        </repository>
+    </distributionManagement>
 </project>

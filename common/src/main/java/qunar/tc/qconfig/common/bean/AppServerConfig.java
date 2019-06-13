@@ -2,8 +2,6 @@ package qunar.tc.qconfig.common.bean;
 
 import qunar.tc.qconfig.common.enums.AppServerType;
 
-
-// TODO: 2018/11/16 这里需要更改
 public class AppServerConfig {
 
     private final String name;

@@ -1,15 +1,8 @@
 package qunar.tc.qconfig.admin.monitor;
 
-import com.google.common.cache.CacheBuilder;
-import com.google.common.cache.CacheLoader;
-import com.google.common.cache.LoadingCache;
-import qunar.tc.qconfig.client.spring.QConfig;
 import qunar.tc.qconfig.common.metrics.Metrics;
 import qunar.tc.qconfig.common.metrics.QConfigCounter;
 import qunar.tc.qconfig.common.metrics.QConfigTimer;
-
-import java.util.Arrays;
-import java.util.concurrent.TimeUnit;
 
 /**
  * User: zhaohuiyu
@@ -31,12 +24,6 @@ public class Monitor {
     public static final QConfigTimer clientUploadTimer = Metrics.timer("client_upload_request");
 
     public static final QConfigTimer batchSaveTimerWithoutPostEvent = Metrics.timer("batch_save_noevent_cost");
-
-    public static final QConfigTimer batchSaveTimer = Metrics.timer("batch_save_cost");
-
-    public static final QConfigTimer pluginCallTimer = Metrics.timer("client_set_public_request");
-
-    public static final QConfigTimer freshQaTimer = Metrics.timer("fresh_qa");
 
     public static final String CLIENT_UPLOAD_FAIL = "client_upload_request_failOf_code";
 
@@ -60,66 +47,67 @@ public class Monitor {
 
     public static final QConfigTimer NEW_API_BATCH_ONEBUTTON_TIMER = Metrics.timer("new_api_batch_onebutton_timer");
 
-    private static final String TYPE = "type";
-    private static final String STATICS = "user_statistics";
 
-    public static final QConfigCounter CLIENT_UPDATE_FILE_COUNT = Metrics.counter(CLIENT_UPLOAD_FAIL);
 
-    public static final QConfigCounter APPLY_STATICS = Metrics.counter( "user_statistics_apply");
+    public static void clientUpdateFileCountInc(int code) {
+        Metrics.counter(CLIENT_UPLOAD_FAIL, MonitorConstants.FAIL_CODE, new String[]{String.valueOf(code)});
+    }
 
-    public static final QConfigCounter FORCE_APPLY_STATICS = Metrics.counter( "user_statistics_force_apply");
+    public static final QConfigCounter APPLY_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"apply"});
 
-    public static final QConfigCounter MULTI_APPLY_STATICS = Metrics.counter( "user_statistics_multi_apply");
+    public static final QConfigCounter FORCE_APPLY_STATICS = Metrics.counter( MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"force_apply"});
 
-    public static final QConfigCounter APPROVE_STATICS = Metrics.counter( "user_statistics_approve");
+    public static final QConfigCounter MULTI_APPLY_STATICS = Metrics.counter( MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"multi_apply"});
 
-    public static final QConfigCounter BATCH_APPROVE_STATICS = Metrics.counter("user_statistics_batch_approve");
+    public static final QConfigCounter APPROVE_STATICS = Metrics.counter( MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"approve"});
 
-    public static final QConfigCounter REJECT_STATICS = Metrics.counter("user_statistics_reject");
+    public static final QConfigCounter BATCH_APPROVE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"batch_approve"});
 
-    public static final QConfigCounter BATCH_REJECT_STATICS = Metrics.counter("user_statistics_batch_reject");
+    public static final QConfigCounter REJECT_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"reject"});
 
-    public static final QConfigCounter RETURN_APPROVE_STATICS = Metrics.counter("user_statistics_return_approve");
+    public static final QConfigCounter BATCH_REJECT_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"batch_reject"});
 
-    public static final QConfigCounter DELETE_STATICS = Metrics.counter("user_statistics_delete");
+    public static final QConfigCounter RETURN_APPROVE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"return_approve"});
 
-    public static final QConfigCounter PUBLISH_STATICS = Metrics.counter("user_statistics_publish");
+    public static final QConfigCounter DELETE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"delete"});
 
-    public static final QConfigCounter BATCH_PUBLISH_STATICS = Metrics.counter("user_statistics_batch_publish");
+    public static final QConfigCounter PUBLISH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"publish"});
 
-    public static final QConfigCounter PUBLIC_STATICS = Metrics.counter("user_statistics_public");
+    public static final QConfigCounter BATCH_PUBLISH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"batch_publish"});
 
-    public static final QConfigCounter ROLLBACK_STATICS = Metrics.counter("user_statistics_rollback");
+    public static final QConfigCounter PUBLIC_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"public"});
 
-    public static final QConfigCounter INHERIT_STATICS = Metrics.counter("user_statistics_inherit");
+    public static final QConfigCounter ROLLBACK_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"rollback"});
 
-    public static final QConfigCounter REFERENCE_STATICS = Metrics.counter("user_statistics_reference");
+    public static final QConfigCounter INHERIT_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"inherit"});
 
-    public static final QConfigCounter CANCEL_REFERENCE_STATICS = Metrics.counter("user_statistics_cancel_reference");
+    public static final QConfigCounter REFERENCE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"reference"});
 
-    public static final QConfigCounter ONE_BUTTON_PUBLISH_STATICS = Metrics.counter("user_statistics_one_button_publish");
+    public static final QConfigCounter CANCEL_REFERENCE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"cancel_reference"});
 
-    public static final QConfigCounter PUSH_STATICS = Metrics.counter("user_statistics_push");
+    public static final QConfigCounter ONE_BUTTON_PUBLISH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"one_button_publish"});
 
-    public static final QConfigCounter EDIT_PUSH_STATICS = Metrics.counter("user_statistics_edit_push");
+    public static final QConfigCounter PUSH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"push"});
 
-    public static final QConfigCounter BATCH_PUSH_STATICS = Metrics.counter("user_statistics_batch_push");
+    public static final QConfigCounter EDIT_PUSH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"edit_push"});
 
-    public static final QConfigCounter HISTORY_DIFF_STATICS = Metrics.counter("user_statistics_history_diff");
+    public static final QConfigCounter BATCH_PUSH_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"batch_push"});
 
-    public static final QConfigCounter ENCRYPT_KEY_STATICS = Metrics.counter("user_statistics_encrypt_key");
+    public static final QConfigCounter HISTORY_DIFF_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"history_diff"});
 
-    public static final QConfigCounter SET_PERMISSION_STATICS = Metrics.counter("user_statistics_set_permission");
+    public static final QConfigCounter ENCRYPT_KEY_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"encrypt_key"});
 
-    public static final QConfigCounter SET_FILE_PERMISSION_STATICS = Metrics.counter("user_statistics_set_file_permission");
+    public static final QConfigCounter SET_PERMISSION_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"set_permission"});
 
-    public static final QConfigCounter UPLOAD_STATICS = Metrics.counter("user_statistics_upload");
+    public static final QConfigCounter SET_FILE_PERMISSION_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"set_file_permission"});
 
-    public static final QConfigCounter PROD_BETA_COMPARE_STATICS = Metrics.counter("user_statistics_prod_beta_compare");
+    public static final QConfigCounter UPLOAD_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"upload"});
 
-    public static final QConfigCounter API_DIFF_PROFILE_STATICS = Metrics.counter("user_statistics_api_diff_profile");
+    public static final QConfigCounter PROD_BETA_COMPARE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"prod_beta_compare"});
 
-    public static final QConfigCounter SET_FILE_VALIDATE_URL = Metrics.counter("user_statistics_set_file_validate_url");
+    public static final QConfigCounter API_DIFF_PROFILE_STATICS = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"api_diff_profile"});
+
+    public static final QConfigCounter SET_FILE_VALIDATE_URL = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"set_file_validate_url"});
 
     public static final QConfigCounter REMOVE_ENTRIES_FAILED_COUNT = Metrics.counter("removeEntries_failed_count");
 
@@ -133,7 +121,7 @@ public class Monitor {
 
     public static final QConfigCounter configOperateConflictCounter = Metrics.counter("configOperateConflict_count");
 
-    public static final QConfigCounter REST_CONFIGS_POST_COUNT = Metrics.counter("user_statistics_configs_post_count");
+    public static final QConfigCounter REST_CONFIGS_POST_COUNT = Metrics.counter(MonitorConstants.STATICS, MonitorConstants.TYPE_TAG, new String[]{"configs_post_count"});
 
     public static final QConfigCounter freshQaFailCounter = Metrics.counter("fresh_qa_failOf");
 

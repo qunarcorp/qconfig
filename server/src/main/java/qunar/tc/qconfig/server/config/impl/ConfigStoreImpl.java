@@ -122,13 +122,14 @@ public class ConfigStoreImpl implements ConfigStore {
             return config;
         }
 
-        Monitor.notFoundConfigFileFromDiskCounter.inc();
+        String groupId = configId.getData().getGroup();
+        Monitor.notFoundConfigFileFromDiskCounterInc(groupId);
         log.warn("config not found from disk: {}", configId);
         config = findFromDb(configId);
         if (config != null) {
             return config;
         }
-        Monitor.notFoundConfigFileFromDbCounter.inc();
+        Monitor.notFoundConfigFileFromDbCounterInc(groupId);
 
         throw new ConfigNotFoundException();
     }
@@ -177,12 +178,12 @@ public class ConfigStoreImpl implements ConfigStore {
             return cacheData;
         }
 
-        Monitor.notFoundConfigFileFromDiskCounter.inc();
+        Monitor.notFoundConfigFileFromDiskCounterInc(configId.getData().getGroup());
         VersionData<ChecksumData<String>> dbData = forceloadFromDb(ip, configId);
         if (dbData != null) {
             return dbData;
         }
-        Monitor.notFoundConfigFileFromDbCounter.inc();
+        Monitor.notFoundConfigFileFromDbCounterInc(configId.getData().getGroup());
 
         throw new ConfigNotFoundException();
     }
