@@ -17,6 +17,7 @@
    在有使用稳定IP或域名的Server以后，可以直接修改common模块下资源目录中default.conf qconfig.default.serverlist的值为Server的域名或者IP:PORT
 
 2. 启动Admin 
+> 启动后，默认登陆账户为 admin 密码为 123456
 
    启动方法与Server相似
 
@@ -64,3 +65,4 @@
    3. 存在启动的Server且使用了已经修改了默认Server地址的QConfigClient
 
       直接启动即可
+      
