@@ -1,6 +1,5 @@
 package qunar.tc.qconfig.server.serverself.serverinfo;
 
-import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.CharSource;
 import org.slf4j.Logger;
@@ -18,6 +17,7 @@ import qunar.tc.qconfig.server.serverself.eureka.ServerStore;
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author zhenyu.nie created on 2018 2018/3/28 11:59

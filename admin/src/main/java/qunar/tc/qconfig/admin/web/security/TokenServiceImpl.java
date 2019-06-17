@@ -20,13 +20,8 @@ public class TokenServiceImpl implements TokenService {
     public String decode(String token) {
 
         logger.debug("decode app server, token={}", token);
-        if (Strings.isNullOrEmpty(token)) return TokenUtil.decode(token);
-
-        try {
-            return null;
-        } catch (Exception e) {
-            throw new RuntimeException("解密应用配置失败, token=" + token, e);
-        }
+        if (!Strings.isNullOrEmpty(token)) return TokenUtil.decode(token);
+        return null;
     }
 
 }

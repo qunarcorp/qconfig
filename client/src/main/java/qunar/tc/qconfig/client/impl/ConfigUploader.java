@@ -1,6 +1,5 @@
 package qunar.tc.qconfig.client.impl;
 
-import com.google.common.base.Optional;
 import com.google.common.base.Preconditions;
 import com.google.common.util.concurrent.ListenableFuture;
 import org.slf4j.Logger;
@@ -12,6 +11,7 @@ import qunar.tc.qconfig.common.application.ServerManager;
 import qunar.tc.qconfig.common.bean.StatusType;
 
 import java.io.FileNotFoundException;
+import java.util.Optional;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -126,7 +126,7 @@ public class ConfigUploader implements Uploader {
         ListenableFuture<Snapshot<String>> snapshot = client.loadCandidateSnapShotData(groupName, dataId);
         Snapshot<String> result = snapshot.get();
         logger.info("complete request latest snapshot qconfig file, file=[{}]", new Meta(groupName, dataId));
-        return result == null ? Optional.<Snapshot<String>>absent() : Optional.of(result);
+        return result == null ? Optional.<Snapshot<String>>empty() : Optional.of(result);
     }
 
     private UploadResult uploadCas(VersionProfile version, Meta meta, String data, boolean isPublic, String operator, boolean directPublish, String description) throws Exception {
@@ -148,7 +148,7 @@ public class ConfigUploader implements Uploader {
         } catch (ExecutionException e) {
             if (e.getCause() instanceof FileNotFoundException) {
                 logger.info("get current qconfig file failOf, no file, group=[{}], dataId=[{}]", groupName, dataId);
-                return Optional.absent();
+                return Optional.empty();
             }
             throw e;
         }

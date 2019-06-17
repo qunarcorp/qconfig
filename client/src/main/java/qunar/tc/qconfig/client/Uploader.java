@@ -1,8 +1,9 @@
 package qunar.tc.qconfig.client;
 
-import com.google.common.base.Optional;
 import qunar.tc.qconfig.client.impl.Snapshot;
 import qunar.tc.qconfig.client.impl.VersionProfile;
+
+import java.util.Optional;
 
 /**
  * 使用ConfigUploader.getInstance()获取Uploader

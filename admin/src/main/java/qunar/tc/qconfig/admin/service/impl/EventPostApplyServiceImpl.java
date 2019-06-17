@@ -1,7 +1,6 @@
 package qunar.tc.qconfig.admin.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.AsyncEventBus;
@@ -141,6 +140,7 @@ public class EventPostApplyServiceImpl implements EventPostApplyService {
 
     @Override
     public void oneButtonPublishEvent(InterData interData, CandidateDTO dto, String remarks) {
+        fixVersion(dto);
         long sts = System.currentTimeMillis();
         postApplyEvent(interData.getApplyDto(), remarks, interData.getApplyResult());
         long endPostApplyEvent = System.currentTimeMillis();
@@ -158,6 +158,10 @@ public class EventPostApplyServiceImpl implements EventPostApplyService {
 
         logger.info("total:{}, postApplyEvent:{},postApproveEvent:{},loadDataAndPostEvent:{},postCurrentConfigChangedEvent:{},loadInheritdataAndPostInheritEvent:{}",
                 ets - sts, endPostApplyEvent - sts, endPostApproveEvent - endPostApplyEvent, endLoadDataAndPostEvent - endPostApproveEvent, endPostCurrentConfigChangedEvent - endLoadDataAndPostEvent, ets - endPostCurrentConfigChangedEvent);
+    }
+
+    private void fixVersion(CandidateDTO dto) {
+        dto.setEditVersion(dto.getEditVersion() - 1);
     }
 
     @Override
