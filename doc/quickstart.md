@@ -2,22 +2,7 @@
 
 1. 引入依赖
 
-   ```xml
-   <!--在pom里的dependencyManagement加入如下片段-->
-   <dependency>
-     <groupId>qunar.tc</groupId>
-     <artifactId>tcdev</artifactId>
-     <version>查看maven仓库，找到最新版本</version>
-     <type>pom</type>
-     <scope>import</scope>
-   </dependency>
-   
-   <!-- 添加依赖 -->
-   <dependency>
-     <groupId>qunar.tc.qconfig</groupId>
-     <artifactId>qconfig-client</artifactId>
-   </dependency>
-   ```
+todo
 
    
 
