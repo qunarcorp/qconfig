@@ -1,68 +1,35 @@
 ### QConfig启动
 
-> 环境需求 tomcat >= 7.0 JDK >=1.8
+> 环境需求 
+>
+> tomcat >= 7.0 
+>
+> JDK >=1.8
+>
+> Mysql >= 5.6.5
 
-1. 启动server。
+#### 部署
 
-   首先在数据库中导入admin模块下的sql/main.sql。推荐同时导入qconfig_data，导入qconfig_data后即可将默认的简单配置文件导入数据库中。
+QConfig的部署中，主要分为如下几步。
 
-   在不存在已启动Server时，首先修改qconfig_test中mysql.properties修改数据库配置。然后直接使用Idea启动Tomcat的方法启动Server. Server将会使用在资源目录下qconfig_test中的配置文件。
+1. 导入数据库。导入克隆代码中admin模块下的sql/main.sql。推荐同时导入qconfig_data，导入qconfig_data后即可将QConfig配置文件以及示例文件和应用导入。
+2. 进行Server和admin模块的部署工作，部署具体步骤见部署细节。首先部署Server，再部署Admin
+3. 启动Client，获取配置。
 
-   在已有Server在线且Server中存在QConfig配置文件的情况下，推荐使用如下虚拟机启动参数指定Server地址（将IP:PORT 替换为已有Server地址）
+#### 部署细节
+
+1. 首先根据部署配置修改对应模块资源目录下app-info.properties配置文件中端口，然后修改资源目录下qconfig_test目录下qconfig/mysql.properties的参数用于配置数据库，如果已经有在线Server，请修改此目录下的qconfig.server.host。
+
+2. 在项目根目录执行了mvn install 后，在对应模块目录下执行mvn package命令打包，在target目录下即可查看到对应的war包。
+
+3. 如果存在启动完成的server，请在tomcat启动的虚拟机参数中添加如下参数用于指定QConfig_server.
 
    ```
    -Dqconfig.server=IP:PORT -Dqconfig.server.host=IP:PORT
    ```
 
-   在有使用稳定IP或域名的Server以后，可以直接修改common模块下资源目录中default.conf qconfig.default.serverlist的值为Server的域名或者IP:PORT
+4. 启动tomcat即可完成启动.
 
-2. 启动Admin 
-> 启动后，默认登陆账户为 admin 密码为 123456
+5. 在启动Server，且有稳定Server且导入了数据Sql后，可以通过Admin修改QConfig系统中QConfig的mysql.properties等环境等配置文件。同时启动时，通过虚拟机参数指定使用的QConfigServer。
 
-   启动方法与Server相似
-
-3. 启动其他应用
-
-   1. 创建应用
-
-      访问 /webapp/page/index.html#/qconfig/appinfo
-
-      输入应用带好和应用名称。
-
-   2. 创建QConfig所需的配置文件
-
-      新建一个名为app-info.properties的文件
-
-      文件模版如下
-
-      ```
-      #QConfig中文件环境
-      env=dev 
-      #文件Token
-      token=36b41c5ee5c793a0f01d5aaf8dc3b170
-      #应用代号
-      appCode=qconfig
-      #应用部署端口
-      port=8080
-      ```
-
-      文件中Token在第一步中的页面appCode下输入应用代号，点击获取Token即可获得
-
-   3. 创建配置所需要的配置文件
-
-   在启动使用QConfig的应用时，存在如下几种情况
-
-   1. 没有已启动的QConfigServer
-
-      在资源目录下新建qconfig_test/应用名 
-
-      在目录下放入使用的配置文件即可启动
-
-   2. 存在启动的Server而没有修改default.conf而编译出的QConfigClient Jar包
-
-      参照启动server时指定的虚拟机参数启动即可。
-
-   3. 存在启动的Server且使用了已经修改了默认Server地址的QConfigClient
-
-      直接启动即可
-      
+6. 如果启动后的Server配置了稳定的域名或者IP，可以修改common模块中default.conf文件相关配置，然后再次编译client包，并使用这个包，就可以不用通过虚拟机参数指定Server而直接使用jar包中默认参数。
