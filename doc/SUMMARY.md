@@ -2,7 +2,6 @@
 
 ### QConfig
 
-* [快速开始](quickstart.md)
 * [环境要求](prerequest.md)
 * [使用说明](howto.md)
   - [使用api](useWithApi.md)

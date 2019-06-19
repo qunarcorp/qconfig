@@ -1,4 +1,4 @@
-### QConfig启动
+### 本地启动
 
 > 环境需求 
 >
@@ -14,7 +14,10 @@ QConfig的部署中，主要分为如下几步。
 
 1. 导入数据库。导入克隆代码中admin模块下的sql/main.sql。推荐同时导入qconfig_data，导入qconfig_data后即可将QConfig配置文件以及示例文件和应用导入。
 2. 进行Server和admin模块的部署工作，部署具体步骤见部署细节。首先部署Server，再部署Admin
-3. 启动Client，获取配置。
+3. 启动客户端
+  在使用的应用中添加QConfig依赖，然后在其启动虚拟机参数中添加 -Dqconfig.server=IP:PORT -Dqconfig.server.host=IP:PORT 
+  注意将IP：port替换为启动的Server即可。
+  具体使用方式请查看[使用指南](howto.md)  
 
 #### 部署细节
 

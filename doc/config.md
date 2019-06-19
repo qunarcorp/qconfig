@@ -32,7 +32,7 @@
   | greyRelease.recover.taskNotOperatedTimeout | 灰度发布恢复时间                    |
   | client.check.rate.limit.interval.Second    | 获取consumer二次确认时间            |
   | qconfig.server.host                        | server地址，用,分隔                 |
-  | server.test.rooms                          | dev/beta机房名称                    |
+  | server.test.rooms                          | dev/beta机房 名称                    |
   | server.test.iplist                         | dev/beta qconfigServer地址          |
 
   **这里的dev/beta并非指配置的dev/beta，当beta/dev环境的应用请求到QConfig时，会优先将导向到对应的dev/beta qconfig集群**

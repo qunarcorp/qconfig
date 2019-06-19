@@ -65,8 +65,6 @@
       port=8080
       ```
 
-      
-
       新建一个名为app-info.properties的文件，格式参照如上。
 
       文件中Token在第一步中的页面appCode下输入应用代号，点击获取Token即可获得
