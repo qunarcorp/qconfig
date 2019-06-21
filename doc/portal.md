@@ -1,6 +1,5 @@
 # 后台使用指南
 
-> 管理后台地址 [链接戳这里](http://tc.corp.qunar.com/#/qconfig "Qconfig后台地址")
 
 [TOC]
 
@@ -9,16 +8,6 @@
 下图为QConfig配置文件发布流程 
 
 ![](image/fileStatus.png)
-
-### 环境
-
-在QConfig中 默认提供了4种环境 dev, beta, prod, resource。其中 dev, beta, prod 分别对应 开发，测试，生产环境。 resource下文件则工所有环境使用。
-
-应用发布时候会自动选择相应环境下的文件，这是通过应用所在机器名控制的，比如l-qconfig1.tc.dev.cn0所在应用就会选择dev环境，l-qconfig1.tc.beta.cn0所在应用就会选择beta环境，无法解析的ip（办公机器）会选择dev环境。
-
-对于非线上机器，common版本大于等于8.2.15时，我们提供了手动指定环境的功能（不能指定为线上环境）。方法如下**不推荐**：
-
-可以在jvm启动项添加-Dqunar.env=beta，或者添加一个qunar-env.properties文件，在里面添加上name=beta。如上配置即可使用将环境设置为beta。
 
 #### 子环境
 

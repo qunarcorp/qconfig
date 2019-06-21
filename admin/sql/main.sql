@@ -1,4 +1,4 @@
-drop table api_groupid_permission_rel;
+drop table if exists api_groupid_permission_rel;
 create table api_groupid_permission_rel
 (
     id                  bigint auto_increment comment '自增主键'
@@ -10,7 +10,7 @@ create table api_groupid_permission_rel
 create index ix_DataChange_LastTime
 on api_groupid_permission_rel (datachange_lasttime);
 
-drop table api_groupid_rel;
+drop table if exists api_groupid_rel;
 create table api_groupid_rel
 (
     id                  bigint auto_increment comment '主键'
@@ -25,7 +25,7 @@ create table api_groupid_rel
 create index ix_DataChange_LastTime
     on api_groupid_rel (datachange_lasttime);
 
-drop table api_permission;
+drop table if exists api_permission;
 create table api_permission
 (
     id                  bigint auto_increment comment '主键'
@@ -42,7 +42,7 @@ create table api_permission
 create index ix_DataChange_LastTime
     on api_permission (datachange_lasttime);
 
-drop table api_token;
+drop table if exists api_token;
 create table api_token
 (
     id                  bigint auto_increment comment '主键'
@@ -59,7 +59,7 @@ create index ix_DataChange_LastTime
     on api_token (datachange_lasttime);
 
 
-drop table api_token_permission_rel;
+drop table if exists api_token_permission_rel;
 create table api_token_permission_rel
 (
     id                  bigint auto_increment comment '主键'
@@ -74,7 +74,7 @@ create index ix_DataChange_LastTime
     on api_token_permission_rel (datachange_lasttime);
 
 
-drop table batch_push_task_mapping;
+drop table if exists batch_push_task_mapping;
 create table batch_push_task_mapping
 (
     id           bigint(11) unsigned auto_increment comment '主键'
@@ -97,7 +97,7 @@ create index idx_update_time
 create index idx_uuid
     on batch_push_task_mapping (uuid);
 
-drop table batch_push_task;
+drop table if exists batch_push_task;
 create table batch_push_task_new
 (
     id                 bigint(11) unsigned auto_increment comment '主键'
@@ -121,7 +121,7 @@ create table batch_push_task_new
 create index idx_group_profile
     on batch_push_task_new (group_id, profile);
 
-drop table config;
+drop table if exists config;
 create table config
 (
     id            int auto_increment comment '主键'
@@ -138,7 +138,7 @@ create table config
 )
     comment '配置信息' charset = utf8;
 
-drop table config_candidate;
+drop table if exists config_candidate;
 create table config_candidate
 (
     id            int(11) unsigned auto_increment comment '主键'
@@ -156,7 +156,7 @@ create table config_candidate
 )
     comment '提交的配置信息表' charset = utf8;
 
-drop table config_candidate_snapshot;
+drop table if exists config_candidate_snapshot;
 create table config_candidate_snapshot
 (
     id            bigint unsigned auto_increment comment '主键'
@@ -175,7 +175,7 @@ create table config_candidate_snapshot
 )
     comment '提交的配置信息快照' charset = utf8;
 
-drop table config_editor_settings;
+drop table if exists config_editor_settings;
 create table config_editor_settings
 (
     id                  bigint(11) unsigned auto_increment comment '主键'
@@ -189,7 +189,7 @@ create table config_editor_settings
 )
     comment '文件编辑页面的各项配置选项';
 
-drop table config_log;
+drop table if exists config_log;
 create table config_log
 (
     id            int auto_increment comment '主键'
@@ -210,7 +210,7 @@ create table config_log
 create index idx_group_profile_data_based_version_version
     on config_log (group_id, profile, data_id, based_version, version);
 
-drop table config_op_log;
+drop table if exists config_op_log;
 create table config_op_log
 (
     id             bigint unsigned auto_increment comment '主键'
@@ -234,7 +234,7 @@ create index idx_group_data_profile_based_version_edit_version
 create index idx_operator_group_type
     on config_op_log (operator, group_id, operation_type);
 
-drop table config_profile;
+drop table if exists config_profile;
 create table config_profile
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -248,7 +248,7 @@ create table config_profile
 )
     comment '配置profile表' charset = utf8;
 
-drop table config_reference;
+drop table if exists config_reference;
 create table config_reference
 (
     id           int(11) unsigned auto_increment comment '主键'
@@ -273,7 +273,7 @@ create table config_reference
 create index idx_ref_group_id_data_id_profile
     on config_reference (ref_group_id, ref_data_id, ref_profile);
 
-drop table config_reference_log;
+drop table if exists config_reference_log;
 create table config_reference_log
 (
     id             int(11) unsigned auto_increment comment '主键'
@@ -293,7 +293,7 @@ create table config_reference_log
 create index idx_ref_group_id_profile_data_id
     on config_reference_log (ref_group_id, ref_profile, ref_data_id);
 
-drop table config_snapshot;
+drop table if exists config_snapshot;
 create table config_snapshot
 (
     id            int auto_increment comment '主键'
@@ -311,7 +311,7 @@ create table config_snapshot
 )
     comment '配置信息快照' charset = utf8;
 
-drop table config_used_log;
+drop table if exists config_used_log;
 create table config_used_log
 (
     id               int(11) unsigned auto_increment comment '主键'
@@ -339,7 +339,7 @@ create table config_used_log
 create index idx_group_dataid_profile
     on config_used_log (group_id, data_id, profile);
 
-drop table default_template_config;
+drop table if exists default_template_config;
 create table default_template_config
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -350,7 +350,7 @@ create table default_template_config
     comment '文件模版默认配置表';
 
 
-drop table default_template_config_mapping;
+drop table if exists default_template_config_mapping;
 create table default_template_config_mapping
 (
     id        bigint(11) unsigned auto_increment comment '主键'
@@ -364,7 +364,7 @@ create table default_template_config_mapping
 )
     comment '文件模版默认配置映射表';
 
-drop table encrypt_key;
+drop table if exists encrypt_key;
 create table encrypt_key
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -381,7 +381,7 @@ create table encrypt_key
 )
     comment '需要加密的key表' charset = utf8;
 
-drop table file_comment;
+drop table if exists file_comment;
 create table file_comment
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -397,7 +397,7 @@ create table file_comment
 )
     comment '文件提交备注表' charset = utf8;
 
-drop table file_content_md5;
+drop table if exists file_content_md5;
 create table file_content_md5
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -416,7 +416,7 @@ create table file_content_md5
 create index idx_md5
     on file_content_md5 (md5);
 
-drop table file_delete;
+drop table if exists file_delete;
 create table file_delete
 (
     id       bigint(11) unsigned auto_increment comment '主键'
@@ -433,7 +433,7 @@ create table file_delete
 create index idx_ip
     on file_delete (ip);
 
-drop table file_description;
+drop table if exists file_description;
 create table file_description
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -450,7 +450,7 @@ create table file_description
 )
     comment '文件描述表';
 
-drop table file_permission;
+drop table if exists file_permission;
 create table file_permission
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -468,7 +468,7 @@ create table file_permission
 create index idx_group_data
     on file_permission (group_id, data_id);
 
-drop table file_public_status;
+drop table if exists file_public_status;
 create table file_public_status
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -486,7 +486,7 @@ create table file_public_status
 create index type_index
     on file_public_status (type);
 
-drop table file_push_history;
+drop table if exists file_push_history;
 create table file_push_history
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -508,7 +508,7 @@ create table file_push_history
 create index idx_group_dataId_profile_version
     on file_push_history (group_id, data_id, profile, version);
 
-drop table file_template;
+drop table if exists file_template;
 create table file_template
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -527,7 +527,7 @@ create table file_template
 )
     comment '文件模版表';
 
-drop table file_template_mapping;
+drop table if exists file_template_mapping;
 create table file_template_mapping
 (
     id             int(11) unsigned auto_increment comment '主键'
@@ -543,7 +543,7 @@ create table file_template_mapping
 )
     comment '文件模版映射表';
 
-drop table file_template_snapshot;
+drop table if exists file_template_snapshot;
 create table file_template_snapshot
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -562,7 +562,7 @@ create table file_template_snapshot
 )
     comment '文件模版快照表';
 
-drop table file_template_version_mapping;
+drop table if exists file_template_version_mapping;
 create table file_template_version_mapping
 (
     id               bigint(11) unsigned auto_increment comment '主键'
@@ -584,7 +584,7 @@ create table file_template_version_mapping
 create index idx_tgroup_template_tversion
     on file_template_version_mapping (template_group, template, template_version);
 
-drop table file_validate_url;
+drop table if exists file_validate_url;
 create table file_validate_url
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -602,7 +602,7 @@ create table file_validate_url
     comment '文件校验url表';
 
 
-drop table fixed_consumer_version;
+drop table if exists fixed_consumer_version;
 create table fixed_consumer_version
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -620,7 +620,7 @@ create table fixed_consumer_version
 )
     comment '当前使用的config表' charset = utf8;
 
-drop table group_op_log;
+drop table if exists group_op_log;
 create table group_op_log
 (
     id             bigint unsigned auto_increment comment '主键'
@@ -635,7 +635,7 @@ create table group_op_log
 create index idx_group_id_operation_time
     on group_op_log (group_id, operation_time);
 
-drop table pb_app;
+drop table if exists pb_app;
 create table pb_app
 (
     id          int unsigned auto_increment
@@ -658,7 +658,7 @@ create index idx_status
 create index uniq_create_time
     on pb_app (create_time);
 
-drop table pb_user_app;
+drop table if exists pb_user_app;
 create table pb_user_app
 (
     id          int unsigned auto_increment
@@ -678,7 +678,7 @@ create index idx_app_code
 create index idx_login_id
     on pb_user_app (login_id);
 
-drop table permission;
+drop table if exists permission;
 create table permission
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -695,7 +695,7 @@ create table permission
 create index idx_group_id
     on permission (group_id);
 
-drop table properties_entries;
+drop table if exists properties_entries;
 create table properties_entries
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -720,7 +720,7 @@ create index idx_group_id_profile_data_id_searchable
 create index idx_searchable_update_time
     on properties_entries (searchable, update_time);
 
-drop table properties_entries_log;
+drop table if exists properties_entries_log;
 create table properties_entries_log
 (
     id           bigint(11) unsigned auto_increment comment '主键'
@@ -742,7 +742,7 @@ create table properties_entries_log
 )
     comment 'properties entry变更日志表' charset = utf8;
 
-drop table properties_template;
+drop table if exists properties_template;
 create table properties_template
 (
     id          int(11) unsigned auto_increment comment '主键'
@@ -760,7 +760,7 @@ create table properties_template
     comment 'properties文件模版表';
 
 
-drop table publish_key_intercept_strategy;
+drop table if exists publish_key_intercept_strategy;
 create table publish_key_intercept_strategy
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -775,7 +775,7 @@ create table publish_key_intercept_strategy
 )
     comment '文件发布key拦截策略表';
 
-drop table push_config_version;
+drop table if exists push_config_version;
 create table push_config_version
 (
     id          bigint(11) unsigned auto_increment comment '主键'
@@ -792,7 +792,7 @@ create table push_config_version
 )
     comment '推送过的配置版本表';
 
-drop table reference_last_snapshot;
+drop table if exists reference_last_snapshot;
 create table reference_last_snapshot
 (
     id           int unsigned auto_increment comment '主键'
@@ -806,7 +806,7 @@ create table reference_last_snapshot
 )
     comment '引用文件最后一次快照表' charset = utf8;
 
-drop table server;
+drop table if exists server;
 create table server
 (
     id   bigint(11) unsigned auto_increment comment '主键'
@@ -819,7 +819,7 @@ create table server
 )
     comment 'server信息表';
 
-drop table user_favorites;
+drop table if exists user_favorites;
 create table user_favorites
 (
     id          bigint(11) unsigned auto_increment comment '主键'

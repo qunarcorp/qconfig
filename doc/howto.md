@@ -11,16 +11,12 @@ QConfig与其他TC组建相同，需要使用 TCPOM 的方式添加依赖 TCPOM�
 在完成TC POM添加后在需要使用QConfig的模块或者应用的POM中添加如下依赖即可
 
 ```xml
-<dependency>
-  <groupId>qunar.tc.qconfig</groupId>
-  <artifactId>qconfig-client</artifactId>
-</dependency>
+todo
 ```
 
-### 获取Qunar-app.properties
+### app-info.properties
 
-1. 在应用中心 [管理页面](http://pbservice.corp.qunar.com/app_list.htm "应用中心地址") ，进入对应的应用管理地址，点击下载配置即可获得配置文件。
-2. 将文件放入应用的resources根目录即可。文件没有环境限制，所有环境一致
+1. 在应用资源根目录下创建app-info.properties文件
 
 ### 与Spring集成
 

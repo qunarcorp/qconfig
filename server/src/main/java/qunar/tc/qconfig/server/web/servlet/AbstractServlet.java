@@ -75,21 +75,11 @@ public abstract class AbstractServlet extends HttpServlet {
 
     protected RestConfigService restConfigService;
 
-    protected static volatile Set<String> needDoPluginAppids = Sets.newHashSet();
-
-    private static final Splitter SPLITTER = Splitter.on(",").trimResults();
-
     private static final MapConfig config;
 
     static {
         config = MapConfig.get("config.properties", Feature.create().setFailOnNotExists(false).build());
         config.asMap();
-        config.addListener(new Configuration.ConfigListener<Map<String, String>>() {
-            @Override
-            public void onLoad(Map<String, String> conf) {
-                needDoPluginAppids.addAll(SPLITTER.splitToList(conf.get("server.need.doplugin.appids")));
-            }
-        });
     }
 
     @Override
