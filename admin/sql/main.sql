@@ -1,4 +1,4 @@
-drop table api_groupid_permission_rel;
+drop table if exists api_groupid_permission_rel;
 create table api_groupid_permission_rel
 (
     id                  bigint auto_increment comment '自增主键'
