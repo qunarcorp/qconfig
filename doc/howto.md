@@ -6,9 +6,6 @@
 
 ### 添加依赖
 
-QConfig与其他TC组建相同，需要使用 TCPOM 的方式添加依赖 TCPOM使用方式如下 [TCPOM 使用指南](https://wiki.corp.qunar.com/confluence/pages/viewpage.action?pageId=114438300 "TC POM")
-
-在完成TC POM添加后在需要使用QConfig的模块或者应用的POM中添加如下依赖即可
 
 ```xml
 todo
