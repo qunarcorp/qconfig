@@ -1,5 +1,7 @@
 ### 本地启动
 
+为了更方便的启动QConfig，除了以下的方案外，我们还准备了Docker镜像用于很快的启动QConfig，详见[docker启动](docker_start.md)。
+
 > 环境需求 
 >
 > tomcat >= 7.0 
@@ -12,7 +14,7 @@
 
 QConfig的部署中，主要分为如下几步。
 
-1. 导入数据库。导入克隆代码中admin模块下的sql/main.sql。推荐同时导入qconfig_data，导入qconfig_data后即可将QConfig配置文件以及示例文件和应用导入。
+1. 导入数据库。创建名为qconfig的数据库，然后导入克隆代码中admin模块下的sql/main.sql。推荐同时导入qconfig_data，导入qconfig_data后即可将QConfig配置文件以及示例文件和应用导入。
 2. 进行Server和admin模块的部署工作，部署具体步骤见部署细节。首先部署Server，再部署Admin
 3. 启动客户端
   在使用的应用中添加QConfig依赖，然后在其启动虚拟机参数中添加 -Dqconfig.server=IP:PORT -Dqconfig.server.host=IP:PORT 
