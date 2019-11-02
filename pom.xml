@@ -38,7 +38,7 @@
         <guava.version>23.0</guava.version>
         <org.slf4j.version>1.7.5</org.slf4j.version>
         <logback.version>1.0.13</logback.version>
-        <netty4.version>4.0.24.Final</netty4.version>
+        <netty4.version>4.1.42.Final</netty4.version>
         <netty3.version>3.9.5.Final</netty3.version>
         <tomcat.version>7.0.94</tomcat.version>
         <prometheus.client.version>0.6.0</prometheus.client.version>
