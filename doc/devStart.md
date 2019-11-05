@@ -10,15 +10,15 @@
 
    1. 添加启动项，点击 add Configuration，添加TomcatServer。
 
-      ![doc/addConfig.png](/Users/deepdown/Dev_Env/QConfigOpenSource/qconfig/doc/image/addConfig.png)
+      ![doc/addConfig.png](./image/addConfig.png)
 
    2. 在TomcatServer中Deployment 中添加Server。
 
-      ![doc/addConfig.png](/Users/deepdown/Dev_Env/QConfigOpenSource/qconfig/doc/image/deploy.png)
+      ![doc/addConfig.png](./image/deploy.png)
 
    3. 在tomcat虚拟机参数中添加如下内容
 
-      ![doc/addConfig.png](/Users/deepdown/Dev_Env/QConfigOpenSource/qconfig/doc/image/vmOptions.png)
+      ![doc/addConfig.png](./image/vmOptions.png)
 
       (请将ip和端口更换为以后的Server地址，以用于指定server，如果没有则可以忽视这部。)
 
