@@ -15,7 +15,7 @@
         <maven_deploy_skip>false</maven_deploy_skip>
         <file_encoding>UTF-8</file_encoding>
 
-        <org.springframework.version>4.3.24.RELEASE</org.springframework.version>
+        <org.springframework.version>5.2.22.RELEASE</org.springframework.version>
         <org.springsecurity.version>4.2.13.RELEASE</org.springsecurity.version>
         <digester.version>1.6</digester.version>
         <commons.fileupload>1.3.3</commons.fileupload>
