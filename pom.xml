@@ -28,7 +28,7 @@
         <mockito.version>1.9.5</mockito.version>
         <powermock.version>1.6.4</powermock.version>
         <qtracer.version>1.4.2</qtracer.version>
-        <poi.version>3.9</poi.version>
+        <poi.version>4.1.1</poi.version>
         <jackson.version>2.9.9</jackson.version>
         <eureka.version>1.7.0</eureka.version>
         <jersey.version>1.19.1</jersey.version>
